@@ -1,0 +1,25 @@
+sherlockode_sylius_acb_admin_page:
+    resource: |
+        alias: sherlockode_sylius_acb.page
+        section: admin
+        templates: admin\Acb
+        except: ['show']
+        redirect: update
+        grid: sherlockode_sylius_acb_admin_page
+        vars:
+            index:
+                icon: 'sticky note'
+    type: sylius.resource
+
+sherlockode_sylius_acb_admin_content:
+    resource: |
+        alias: sherlockode_sylius_acb.content
+        section: admin
+        templates: admin\Acb
+        except: ['show']
+        redirect: update
+        grid: sherlockode_sylius_acb_admin_content
+        vars:
+            index:
+                icon: 'sticky note outline'
+    type: sylius.resource

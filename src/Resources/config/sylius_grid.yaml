@@ -1,0 +1,57 @@
+sylius_grid:
+    grids:
+        sherlockode_sylius_acb_admin_page:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: ~
+            fields:
+                id:
+                    type: string
+                    label: sylius.ui.id
+                title:
+                    type: twig
+                    path: .
+                    options:
+                        template: "@SherlockodeSyliusAdvancedContentPlugin/Page/Grid/Fields/pageTitle.html.twig"
+                    label: sylius.ui.title
+                status:
+                    type: twig
+                    options:
+                        template: "@SherlockodeSyliusAdvancedContentPlugin/Page/Grid/Fields/status.html.twig"
+                    label: sylius.ui.status
+            actions:
+                main:
+                    create:
+                        type: create
+                item:
+                    update:
+                        type: update
+                    delete:
+                        type: delete
+        sherlockode_sylius_acb_admin_content:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: ~
+                    repository:
+                        method: createListQueryBuilder
+            fields:
+                id:
+                    type: string
+                    label: sylius.ui.id
+                name:
+                    type: string
+                    label: sylius.ui.title
+                slug:
+                    type: string
+                    label: sylius.ui.slug
+            actions:
+                main:
+                    create:
+                        type: create
+                item:
+                    update:
+                        type: update
+                    delete:
+                        type: delete

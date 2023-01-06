@@ -1,0 +1,16 @@
+{% set status = data %}
+{% if status == constant('Sherlockode\\AdvancedContentBundle\\Model\\PageInterface::STATUS_PUBLISHED') %}
+    <span class="ui teal label">
+        <i class="checkmark icon"></i>
+        {{ 'page.form.statuses.published'|trans({}, 'AdvancedContentBundle') }}
+    </span>
+{% elseif status == constant('Sherlockode\\AdvancedContentBundle\\Model\\PageInterface::STATUS_TRASH') %}
+    <span class="ui red label">
+        <i class="remove icon"></i>
+        {{ 'page.form.statuses.trash'|trans({}, 'AdvancedContentBundle') }}
+    </span>
+{% else %}
+    <span class="ui grey label">
+        {{ 'page.form.statuses.draft'|trans({}, 'AdvancedContentBundle') }}
+    </span>
+{% endif %}

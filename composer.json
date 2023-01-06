@@ -1,0 +1,23 @@
+{
+    "name": "sherlolckode/sylius-advacned-contentplugin",
+    "type": "sylius-plugin",
+    "description": "Sylius plugin for SherlockodeAdvancedContentBundle",
+    "keywords": [
+        "sylius",
+        "sylius-plugin"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": "^7.4 || ^8.1",
+        "sherlockode/advanced-content-bundle": "^0.8.3",
+        "sylius/sylius": "^1.10"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "Sherlockode\\SyliusAdvancedContentPlugin\\": "src/"
+        }
+    }
+}

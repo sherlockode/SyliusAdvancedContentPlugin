@@ -1,0 +1,8 @@
+sherlockode_sylius_acb:
+    ui:
+        contents: Bloc de contenu
+        pages: Pages de contenu
+        edit_content: Modifier un bloc de contenu
+        edit_page: Modifier une page de contenu
+        new_content: Ajouter un bloc de contenu
+        new_page: Ajouter une page de contenu
