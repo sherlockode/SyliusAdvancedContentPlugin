@@ -3,10 +3,10 @@ sylius_resource:
         sherlockode_sylius_acb.page:
             driver: doctrine/orm
             classes:
-                model: Sherlockode\AdvancedContentBundle\Entity\Page
+                model: Sherlockode\SyliusAdvancedContentPlugin\Entity\Page
                 form: Sherlockode\AdvancedContentBundle\Form\Type\PageType
         sherlockode_sylius_acb.content:
             driver: doctrine/orm
             classes:
-                model: Sherlockode\AdvancedContentBundle\Entity\Content
+                model: Sherlockode\SyliusAdvancedContentPlugin\Entity\Content
                 form: Sherlockode\AdvancedContentBundle\Form\Type\ContentType
