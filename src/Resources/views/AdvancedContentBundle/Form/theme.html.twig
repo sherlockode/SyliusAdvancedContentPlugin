@@ -1,0 +1,22 @@
+{% extends '@SherlockodeAdvancedContent/Form/base_theme.html.twig' %}
+
+{% block form_start %}
+    {% set attr = attr|default({})|merge({'class': attr.class|default('') ~ ' ui loadable form'}) %}
+    {{ parent() }}
+{% endblock %}
+
+{% block form_row -%}
+    {% set addedClass -%}
+        {% if required %}required {% endif %}field{% if (not compound or force_error|default(false)) and not valid %} error{% endif %}
+    {%- endset %}
+    {% if form.parent and (form.parent.vars.name == 'value' or (form.parent.parent and form.parent.parent.vars.name == 'value')) and form.children|length > 0 %}
+    {% set addedClass = addedClass ~ ' ' ~ 'acb-field-element-compound' %}
+    {% endif %}
+    {% set row_attr = row_attr|default({})|merge({'class': row_attr.class|default('') ~ ' ' ~ addedClass}) %}
+    <div class="{{ row_attr.class }}">
+        {{- form_label(form) -}}
+        {{- form_widget(form) -}}
+        {{- form_help(form) -}}
+        {{- form_errors(form) -}}
+    </div>
+{%- endblock form_row %}
