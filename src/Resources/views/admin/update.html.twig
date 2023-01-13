@@ -1,0 +1,57 @@
+{% extends '@SyliusAdmin/layout.html.twig' %}
+
+{% set header = configuration.vars.header|default(metadata.applicationName~'.ui.edit_'~metadata.name) %}
+{% set event_prefix = metadata.applicationName ~ '.admin.' ~ metadata.name ~ '.update' %}
+
+{% block title %}{{ header|trans }} {{ parent() }}{% endblock %}
+
+{% form_theme form with [
+    '@SyliusAdmin/Form/theme.html.twig',
+    '@SherlockodeAdvancedContent/Form/content.html.twig',
+    _self
+] %}
+
+{% block form_row -%}
+    {% set classes = ['field'] %}
+    {% if required %}
+        {% set classes = classes|merge(['required']) %}
+    {% endif %}
+    {% if (not compound or force_error|default(false)) and not valid %}
+        {% set classes = classes|merge(['error']) %}
+    {% endif %}
+    {% set row_attr = row_attr|merge({'class': row_attr.class|default('') ~ ' ' ~ classes|join(' ')}) %}
+    <div{% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %}>
+        {{- form_label(form) -}}
+        {{- form_widget(form) -}}
+        {{- form_help(form) -}}
+        {{- form_errors(form) -}}
+    </div>
+{%- endblock form_row %}
+
+{% block content %}
+    {{ sonata_block_render_event(event_prefix ~ '.before_header', {'resource': resource}) }}
+
+    {% include '@SyliusAdmin/Crud/Update/_header.html.twig' %}
+
+    {{ sonata_block_render_event(event_prefix ~ '.after_header', {'resource': resource}) }}
+
+    {% include '@SyliusAdmin/Crud/Update/_content.html.twig' %}
+
+    {{ sonata_block_render_event(event_prefix ~ '.after_content', {'resource': resource}) }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {{ sonata_block_render_event(event_prefix ~ '.stylesheets') }}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"/>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {{ sonata_block_render_event(event_prefix ~ '.javascripts') }}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+{% endblock %}

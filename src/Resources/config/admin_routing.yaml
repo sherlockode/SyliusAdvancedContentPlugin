@@ -2,7 +2,7 @@ sherlockode_sylius_acb_admin_page:
     resource: |
         alias: sherlockode_sylius_acb.page
         section: admin
-        templates: admin\Acb
+        templates: '@SherlockodeSyliusAdvancedContentPlugin\admin'
         except: ['show']
         redirect: update
         grid: sherlockode_sylius_acb_admin_page
@@ -15,7 +15,7 @@ sherlockode_sylius_acb_admin_content:
     resource: |
         alias: sherlockode_sylius_acb.content
         section: admin
-        templates: admin\Acb
+        templates: '@SherlockodeSyliusAdvancedContentPlugin\admin'
         except: ['show']
         redirect: update
         grid: sherlockode_sylius_acb_admin_content
