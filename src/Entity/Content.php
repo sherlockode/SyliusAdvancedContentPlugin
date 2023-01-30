@@ -3,11 +3,11 @@
 namespace Sherlockode\SyliusAdvancedContentPlugin\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Sherlockode\AdvancedContentBundle\Entity\Content as BaseContent;
+use Sherlockode\AdvancedContentBundle\Model\Content as BaseContent;
 use Sylius\Component\Resource\Model\ResourceInterface;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Sherlockode\SyliusAdvancedContentPlugin\Repository\ContentRepository")
  * @ORM\Table(name="acb_content")
  */
 class Content extends BaseContent implements ResourceInterface
@@ -22,7 +22,7 @@ class Content extends BaseContent implements ResourceInterface
     protected $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="Sherlockode\AdvancedContentBundle\Entity\FieldValue", mappedBy="content", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Sherlockode\SyliusAdvancedContentPlugin\Entity\FieldValue", mappedBy="content", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"position"="ASC"})
      */
     protected $fieldValues;

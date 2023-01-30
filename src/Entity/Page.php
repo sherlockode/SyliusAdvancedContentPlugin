@@ -3,7 +3,9 @@
 namespace Sherlockode\SyliusAdvancedContentPlugin\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Sherlockode\AdvancedContentBundle\Entity\Page as BasePage;
+use Gedmo\Blameable\Traits\BlameableEntity;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Sherlockode\AdvancedContentBundle\Model\Page as BasePage;
 use Sylius\Component\Resource\Model\ResourceInterface;
 
 /**
@@ -12,6 +14,9 @@ use Sylius\Component\Resource\Model\ResourceInterface;
  */
 class Page extends BasePage implements ResourceInterface
 {
+    use TimestampableEntity;
+    use BlameableEntity;
+
     /**
      * @var int
      *
@@ -27,13 +32,13 @@ class Page extends BasePage implements ResourceInterface
     protected $contents;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Sherlockode\AdvancedContentBundle\Entity\PageType")
+     * @ORM\ManyToOne(targetEntity="Sherlockode\SyliusAdvancedContentPlugin\Entity\PageType")
      * @ORM\JoinColumn(name="page_type_id", referencedColumnName="id", onDelete="SET NULL")
      */
     protected $pageType;
 
     /**
-     * @ORM\OneToMany(targetEntity="Sherlockode\AdvancedContentBundle\Entity\PageMeta", mappedBy="page", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="Sherlockode\SyliusAdvancedContentPlugin\Entity\PageMeta", mappedBy="page", cascade={"persist", "remove"})
      */
     protected $pageMetas;
 }

@@ -18,6 +18,12 @@ class SherlockodeSyliusAdvancedContentExtension extends Extension implements Pre
 
     public function prepend(ContainerBuilder $container)
     {
+        $this->prependDefaultEntities($container);
+        $this->prependTwigPaths($container);
+    }
+
+    protected function prependTwigPaths(ContainerBuilder $container)
+    {
         if (!$container->hasExtension('twig')) {
             return;
         }
@@ -26,6 +32,26 @@ class SherlockodeSyliusAdvancedContentExtension extends Extension implements Pre
         $container->prependExtensionConfig('twig', [
             'paths' => [
                 $acbResourceDir => 'SherlockodeAdvancedContent',
+            ],
+        ]);
+    }
+
+    /**
+     * Setup the Plugin entities as default for sherlockode_advanced_content
+     *
+     * @param ContainerBuilder $container
+     *
+     * @return void
+     */
+    protected function prependDefaultEntities(ContainerBuilder $container)
+    {
+        $container->prependExtensionConfig('sherlockode_advanced_content', [
+            'entity_class' => [
+                'content' => 'Sherlockode\SyliusAdvancedContentPlugin\Entity\Content',
+                'field_value' => 'Sherlockode\SyliusAdvancedContentPlugin\Entity\FieldValue',
+                'page_type' => 'Sherlockode\SyliusAdvancedContentPlugin\Entity\PageType',
+                'page' => 'Sherlockode\SyliusAdvancedContentPlugin\Entity\Page',
+                'page_meta' => 'Sherlockode\SyliusAdvancedContentPlugin\Entity\PageMeta',
             ],
         ]);
     }
