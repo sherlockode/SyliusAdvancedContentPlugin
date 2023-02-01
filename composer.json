@@ -1,5 +1,5 @@
 {
-    "name": "sherlolckode/sylius-advacned-contentplugin",
+    "name": "sherlockode/sylius-advanced-content-plugin",
     "type": "sylius-plugin",
     "description": "Sylius plugin for SherlockodeAdvancedContentBundle",
     "keywords": [
