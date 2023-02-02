@@ -1,0 +1,66 @@
+{% extends '@SyliusAdmin/layout.html.twig' %}
+{% trans_default_domain 'AdvancedContentBundle' %}
+
+{% form_theme importForm '@SyliusAdmin/Form/theme.html.twig' %}
+{% form_theme exportForm '@SyliusAdmin/Form/theme.html.twig' %}
+
+{% import '@SyliusUi/Macro/headers.html.twig' as headers %}
+
+{% block title %}{{ 'tools.label'|trans }} {{ parent() }}{% endblock %}
+
+{% block content %}
+    {{ headers.default('tools.label'|trans, 'cogs') }}
+
+    <div class="ui segment">
+        <h3 class="ui dividing header">{{ 'tools.import.title'|trans }}</h3>
+        <p>{{ 'tools.import.description'|trans }}</p>
+        <div class="acb-tools-import">
+            {{ form_start(importForm, {'attr': {'class': 'ui loadable form'}}) }}
+            {{ form_errors(importForm) }}
+            {{ form_row(importForm.file) }}
+            <div class="ui hidden divider"></div>
+            <div class="ui buttons">
+                <button class="ui primary button" type="submit">{{ 'tools.import.btn'|trans }}</button>
+            </div>
+            {{ form_end(importForm) }}
+        </div>
+    </div>
+    <div class="ui segment">
+        <h3 class="ui dividing header">{{ 'tools.export.title'|trans }}</h3>
+        <p>{{ 'tools.export.description'|trans }}</p>
+        <div class="acb-tools-export">
+            {{ form_start(exportForm, {'attr': {'class': 'ui loadable form'}}) }}
+            {{ form_errors(exportForm) }}
+            <div class="ui two column stackable grid">
+                <div class="eight wide column">
+                    <div class="acb-export-entities">
+                        {{ form_row(exportForm.page) }}
+                        {% if exportForm.page.vars.choices is not empty %}
+                            {{ form_row(exportForm.pageAll) }}
+                        {% else %}
+                            {{ 'tools.export.empty_list.page'|trans }}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="eight wide column">
+                    <div class="acb-export-entities">
+                        {{ form_row(exportForm.content) }}
+                        {% if exportForm.content.vars.choices is not empty %}
+                            {{ form_row(exportForm.contentAll) }}
+                        {% else %}
+                            {{ 'tools.export.empty_list.content'|trans }}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="ui hidden divider"></div>
+            <div class="ui buttons">
+                <button class="ui primary button" type="submit">{{ 'tools.export.btn'|trans }}</button>
+            </div>
+            {% if exportForm._token is defined %}
+                {{ form_widget(exportForm._token) }}
+            {% endif %}
+            {{ form_end(exportForm, {'render_rest': false}) }}
+        </div>
+    </div>
+{% endblock %}
