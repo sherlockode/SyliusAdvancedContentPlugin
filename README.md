@@ -22,7 +22,7 @@ imports:
 # config/routes/sylius_acb.yaml
 sherlockode_advanced_content_bundle:
     resource: "@SherlockodeAdvancedContentBundle/Resources/config/routing/base.xml"
-    prefix: '/%sylius_admin.path_name%'
+    prefix: '/%sylius_admin.path_name%/acb'
 
 sherlockode_advanced_content:
     resource: "@SherlockodeSyliusAdvancedContentPlugin/Resources/config/admin_routing.yaml"
