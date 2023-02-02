@@ -1,0 +1,10 @@
+sherlockode_sylius_acb:
+    ui:
+        content_menu: Content
+        contents: Content blocks
+        pages: Content pages
+        tools: Tools
+        edit_content: Edit content block
+        edit_page: Edit content page
+        new_content: New content block
+        new_page: New content page

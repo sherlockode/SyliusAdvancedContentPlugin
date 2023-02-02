@@ -1,7 +1,7 @@
 sherlockode_sylius_acb:
     ui:
         content_menu: Contenu
-        contents: Bloc de contenu
+        contents: Blocs de contenu
         pages: Pages de contenu
         tools: Outils
         edit_content: Modifier un bloc de contenu
