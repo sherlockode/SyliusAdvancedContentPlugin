@@ -1,0 +1,6 @@
+services:
+
+    sherlockode_sylius_acb_menu_listener:
+        class: Sherlockode\SyliusAdvancedContentPlugin\Menu\AdminMenuListener
+        tags:
+            - { name: kernel.event_listener, event: sylius.menu.admin.main, method: addAdminMenuItems }
