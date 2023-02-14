@@ -1,0 +1,85 @@
+{% extends '@SherlockodeAdvancedContent/Form/theme.html.twig' %}
+
+{% trans_default_domain 'AdvancedContentBundle' %}
+
+{% block acb_content_translations_widget %}
+    {% set deleteUrl = path('sherlockode_acb_content_delete_locale') %}
+    {% set duplicateUrl = path('sherlockode_acb_content_duplicate_locale') %}
+    {% set duplicateBtnLabel = 'content.duplicate.validate'|trans %}
+    {% set confirmText = 'content.delete.validate'|trans %}
+    {{ block('acb_entity_translations_widget') }}
+{% endblock %}
+
+{% block acb_pagemeta_translations_widget %}
+    {% set deleteUrl = path('sherlockode_acb_page_delete_locale') %}
+    {% set duplicateUrl = path('sherlockode_acb_page_duplicate_locale') %}
+    {% set duplicateBtnLabel = 'page.duplicate.validate'|trans %}
+    {% set confirmText = 'page.delete.validate'|trans %}
+    {{ block('acb_entity_translations_widget') }}
+{% endblock %}
+
+{% block acb_entity_translations_widget %}
+    {{ form_errors(form) }}
+
+    {% import '@SyliusUi/Macro/flags.html.twig' as flags %}
+
+<div class="ui styled fluid accordion">
+    <div class="acb_translations">
+        <div class="acb_translationsLocales">
+        {% for translationsFields in form %}
+            {% set locale = translationsFields.vars.name %}
+            <div data-locale="{{ locale }}">
+                <div class="title{% if loop.first %} active{% endif %}">
+                    <i class="dropdown icon"></i>
+                    {{ flags.fromLocaleCode(locale) }} {{ locale|sylius_locale_name }}
+                    {% if translationsFields.vars.data %}
+                        <i class="acb-delete-locale-content" title="{{ 'delete'|trans }}"
+                           data-entity-id="{{ translationsFields.vars.data.id }}"
+                           data-url="{{ deleteUrl }}"
+                           data-confirm="{{ confirmText }}"
+                        ></i>
+                    {% endif %}
+                </div>
+                <div class="ui content acb_translationFields{% if loop.first %} active{% endif %}">
+                    <div id="{{ translationsFields.vars.id }}_acb_translations-fields" class="{% if app.request.locale == locale %}active{% endif %} {% if not form.vars.valid %}field-error{% endif %}" role="tabpanel">
+                        {{ form_errors(translationsFields) }}
+                        {{ form_widget(translationsFields) }}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+        {% if missingLocales|length > 0 and value|length > 0 %}
+            <div class="acb-missing-locales">
+                <div class="title">
+                    <i class="dropdown icon"></i>
+                    {{ 'content.duplicate.other_locales'|trans }}
+                </div>
+                <div class="ui content">
+                    <div>
+                        <label for="acb-duplicate-target-language">{{ 'content.duplicate.select_target_language'|trans }}</label>
+                        <select id="acb-duplicate-target-language" class="acb-duplicate-locale-value">
+                            {% for locale in missingLocales %}
+                                <option value="{{ locale }}">{{ locale|sylius_locale_name }}</option>
+                            {% endfor %}
+                        </select>
+                        <div class="ui hidden divider"></div>
+                        <div class="acb-duplicate-source">
+                            <label>{{ 'content.duplicate.select_source_language'|trans }}</label>
+                            <select class="ui dropdown">
+                                {% for locale, data in value %}
+                                    <option value="{{ data.id }}">{{ locale|sylius_locale_name }}</option>
+                                {% endfor %}
+                            </select>
+                            <div class="ui hidden divider"></div>
+                            <button data-url="{{ duplicateUrl }}" class="ui primary button" type="button">{{ duplicateBtnLabel }}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        </div>
+    </div>
+</div>
+{% endblock %}
