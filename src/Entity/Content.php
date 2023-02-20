@@ -22,12 +22,6 @@ class Content extends BaseContent implements ResourceInterface
     protected $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="Sherlockode\SyliusAdvancedContentPlugin\Entity\FieldValue", mappedBy="content", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"position"="ASC"})
-     */
-    protected $fieldValues;
-
-    /**
      * @ORM\ManyToOne(targetEntity="Sherlockode\SyliusAdvancedContentPlugin\Entity\Page", inversedBy="contents")
      * @ORM\JoinColumn(name="page_id", referencedColumnName="id", onDelete="SET NULL")
      */
