@@ -48,6 +48,7 @@ class SherlockodeSyliusAdvancedContentExtension extends Extension implements Pre
         $container->prependExtensionConfig('sherlockode_advanced_content', [
             'entity_class' => [
                 'content' => 'Sherlockode\SyliusAdvancedContentPlugin\Entity\Content',
+                'content_version' => 'Sherlockode\SyliusAdvancedContentPlugin\Entity\ContentVersion',
                 'page_type' => 'Sherlockode\SyliusAdvancedContentPlugin\Entity\PageType',
                 'page' => 'Sherlockode\SyliusAdvancedContentPlugin\Entity\Page',
                 'page_meta' => 'Sherlockode\SyliusAdvancedContentPlugin\Entity\PageMeta',
