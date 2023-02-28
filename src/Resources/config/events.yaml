@@ -1,0 +1,11 @@
+sylius_ui:
+    events:
+        sherlockode_sylius_acb.admin.content.create.stylesheets:
+            blocks:
+                sylius_acb:
+                    template: "@SherlockodeSyliusAdvancedContentPlugin/admin/stylesheets.html.twig"
+                    
+        sherlockode_sylius_acb.admin.content.update.stylesheets:
+            blocks:
+                sylius_acb:
+                    template: "@SherlockodeSyliusAdvancedContentPlugin/admin/stylesheets.html.twig"

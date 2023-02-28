@@ -1,0 +1,66 @@
+{% form_theme form with [
+    '@SyliusAdmin/Form/theme.html.twig',
+    '@SherlockodeAdvancedContent/Form/content.html.twig',
+    '@SherlockodeAdvancedContent/Form/translations.html.twig'
+] %}
+
+{% set content = form.vars.data %}
+{{ form_errors(form) }}
+<div class="ui grid">
+    <div class="twelve wide column">
+        <div class="ui fluid styled accordion">
+            <div class="active title">
+                <i class="dropdown icon"></i>
+                {{ 'sherlockode_sylius_acb.form.general'|trans }}
+            </div>
+            <div class="active content">
+                {{ form_row(form.name) }}
+                {{ form_row(form.slug) }}
+            </div>
+        </div>
+        <div class="ui fluid styled accordion">
+            <div class="active title">
+                <i class="dropdown icon"></i>
+                {{ 'sherlockode_sylius_acb.form.content'|trans }}
+            </div>
+            <div class="active content">
+                {{ form_row(form.data) }}
+            </div>
+        </div>
+        {% if content.id %}
+            <div class="ui fluid styled accordion">
+                <div class="active title">
+                    <i class="dropdown icon"></i>
+                    {{ 'sherlockode_sylius_acb.form.history'|trans }}
+                </div>
+                <div class="active content">
+                    {{ include('@SherlockodeAdvancedContent/ContentVersion/list.html.twig', {'content': content}) }}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    <div class="four wide column">
+        {% if form.locale is defined %}
+            <div class="ui fluid styled accordion">
+                <div class="active title">
+                    <i class="dropdown icon"></i>
+                    {{ 'sherlockode_sylius_acb.form.scope'|trans }}
+                </div>
+                <div class="active content">
+                    {{ form_row(form.locale) }}
+                </div>
+            </div>
+        {% endif %}
+        <div class="ui segment center aligned">
+            <div class="ui buttons">
+                <button class="ui labeled icon primary button" type="submit">
+                    {% if content.id %}
+                        <i class="save icon"></i> {{ 'sylius.ui.save_changes'|trans }}
+                    {% else %}
+                        <i class="plus icon"></i> {{ 'sylius.ui.create'|trans }}
+                    {% endif %}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

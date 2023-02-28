@@ -13,7 +13,7 @@
     {% set addedClass = addedClass ~ ' ' ~ 'acb-field-element-compound' %}
     {% endif %}
     {% set row_attr = row_attr|default({})|merge({'class': row_attr.class|default('') ~ ' ' ~ addedClass}) %}
-    <div class="{{ row_attr.class }}">
+    <div {% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %}>
         {{- form_label(form) -}}
         {{- form_widget(form) -}}
         {{- form_help(form) -}}
