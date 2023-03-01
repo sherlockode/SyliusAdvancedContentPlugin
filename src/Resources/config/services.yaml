@@ -4,3 +4,10 @@ services:
         class: Sherlockode\SyliusAdvancedContentPlugin\Menu\AdminMenuListener
         tags:
             - { name: kernel.event_listener, event: sylius.menu.admin.main, method: addAdminMenuItems }
+    
+    sherlockode_advanced_content.user_provider:
+        class: Sherlockode\SyliusAdvancedContentPlugin\User\AdminUserProvider
+        arguments: 
+            - '@translator'
+            - '@security.token_storage'
+            - '@sylius.repository.admin_user'
