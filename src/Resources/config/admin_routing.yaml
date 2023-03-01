@@ -15,11 +15,14 @@ sherlockode_sylius_acb_admin_content:
     resource: |
         alias: sherlockode_sylius_acb.content
         section: admin
-        templates: '@SherlockodeSyliusAdvancedContentPlugin\admin'
+        templates: '@SyliusAdmin\\Crud'
         except: ['show']
         redirect: update
         grid: sherlockode_sylius_acb_admin_content
         vars:
             index:
                 icon: 'sticky note outline'
+            all:
+                templates:
+                    form: "@SherlockodeSyliusAdvancedContentPlugin/admin/Content/_form.html.twig"
     type: sylius.resource
