@@ -11,3 +11,5 @@ services:
             - '@translator'
             - '@security.token_storage'
             - '@sylius.repository.admin_user'
+    sherlockode_advanced_content.scope_handler:
+        class: Sherlockode\SyliusAdvancedContentPlugin\Scope\ChannelLocaleScopeHandler
