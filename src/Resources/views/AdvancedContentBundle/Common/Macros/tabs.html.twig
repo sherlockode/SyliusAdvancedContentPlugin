@@ -1,0 +1,31 @@
+{% macro buildTabs(tabsData, extraClass) %}
+    <div class="ui top attached tabular menu {{ extraClass }}">
+        {% for tabData in tabsData %}
+            <button type="button"
+                    class="item {% if tabData.active %}active{% endif %}"
+                    id="{{ tabData.id }}-tab"
+                    data-tab="{{ tabData.id }}"
+            >
+                {{ tabData.label }}
+            </button>
+        {% endfor %}
+    </div>
+    {% for tabData in tabsData %}
+        <div class="ui bottom attached tab segment {% if tabData.active %}active{% endif %}"
+             data-tab="{{ tabData.id }}"
+             role="tabpanel"
+             aria-labelledby="{{ tabData.id }}-tab"
+        >
+            {{ tabData.content }}
+        </div>
+    {% endfor %}
+{% endmacro %}
+
+{% macro buildEditElementsTabs(tabsData) %}
+    {% import _self as tabs %}
+    {{ tabs.buildTabs(tabsData, 'acb-tabs') }}
+
+    <script>
+        jQuery('.menu.acb-tabs .item').tab();
+    </script>
+{% endmacro %}
