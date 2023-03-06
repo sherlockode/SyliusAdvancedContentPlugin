@@ -40,14 +40,14 @@
         {% endif %}
     </div>
     <div class="four wide column">
-        {% if form.locale is defined %}
+        {% if form.scopes is defined %}
             <div class="ui fluid styled accordion">
                 <div class="active title">
                     <i class="dropdown icon"></i>
                     {{ 'sherlockode_sylius_acb.form.scope'|trans }}
                 </div>
                 <div class="active content">
-                    {{ form_row(form.locale) }}
+                    {{ form_widget(form.scopes) }}
                 </div>
             </div>
         {% endif %}
