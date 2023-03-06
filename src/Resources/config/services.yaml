@@ -13,3 +13,6 @@ services:
             - '@sylius.repository.admin_user'
     sherlockode_advanced_content.scope_handler:
         class: Sherlockode\SyliusAdvancedContentPlugin\Scope\ChannelLocaleScopeHandler
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@sherlockode_advanced_content.configuration_manager'

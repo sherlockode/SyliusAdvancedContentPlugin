@@ -86,4 +86,23 @@ class Scope extends BaseScope
 
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getUnicityIdentifier()
+    {
+        $identifier = '';
+        if ($this->channel !== null) {
+            $identifier = $this->channel->getName();
+        }
+        if ($this->locale !== null) {
+            if ($identifier !== '') {
+                $identifier .= ' - ';
+            }
+            $identifier .= $this->locale->getCode();
+        }
+
+        return $identifier;
+    }
 }
