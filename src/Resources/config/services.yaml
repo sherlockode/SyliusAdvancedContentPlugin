@@ -16,3 +16,36 @@ services:
         arguments:
             - '@doctrine.orm.entity_manager'
             - '@sherlockode_advanced_content.configuration_manager'
+
+    sherlockode_sylius_acb.scope_initializer:
+        class: Sherlockode\SyliusAdvancedContentPlugin\Scope\ScopeInitializer
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@sherlockode_advanced_content.configuration_manager'
+    sherlockode_sylius_acb.scope_init_command:
+        class: Sherlockode\SyliusAdvancedContentPlugin\Command\ScopeInitCommand
+        arguments:
+            - '@sherlockode_advanced_content.configuration_manager'
+            - '@translator'
+            - '@sherlockode_sylius_acb.scope_initializer'
+        tags:
+            - { name: console.command }
+    sherlockode_sylius_acb.controller.scope:
+        class: Sherlockode\SyliusAdvancedContentPlugin\Controller\ScopeController
+        public: true
+        arguments:
+            - '@sherlockode_advanced_content.configuration_manager'
+            - '@sherlockode_sylius_acb.scope_initializer'
+            - '@translator'
+        calls:
+            - [ 'setContainer', [ '@Psr\Container\ContainerInterface' ] ]
+        tags:
+            - { name: container.service_subscriber }
+    sherlockode_sylius_acb.scope_extension:
+        class: Sherlockode\SyliusAdvancedContentPlugin\Twig\Extension\ScopeExtension
+        arguments:
+            - '@sherlockode_advanced_content.configuration_manager'
+            - '@sherlockode_sylius_acb.scope_initializer'
+        tags:
+            - { name: twig.extension }
+    

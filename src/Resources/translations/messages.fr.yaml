@@ -13,3 +13,11 @@ sherlockode_sylius_acb:
         content: Contenu
         history: Historique des versions
         scope: Scope
+    scopes:
+        missing_scopes: La gestion des scopes est activée, mais les scopes n'ont pas été initialisés. Veuillez vous rendre sur la page Outils pour en savoir plus.
+        disabled: La gestion des scopes est désactivée.
+        up_to_date: Les scopes sont déjà à jour.
+        init_success: Les scopes ont bien été initialisés.
+        segment_title: Gestion des scopes
+        details: Les scopes n'ont pas été initialisés. Lancez l'initialisation ou désactivez la gestion des scopes.
+        button: Mettre à jour les scopes

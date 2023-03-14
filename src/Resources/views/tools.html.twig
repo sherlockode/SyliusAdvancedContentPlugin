@@ -11,6 +11,17 @@
 {% block content %}
     {{ headers.default('tools.label'|trans, 'cogs') }}
 
+    {% if sylius_acb_is_scopes_enabled() and not sylius_acb_is_scopes_up_to_date() %}
+        <div class="ui segment">
+            <h3 class="ui dividing header">{{ 'sherlockode_sylius_acb.scopes.segment_title'|trans({}, 'messages') }}</h3>
+            <p>
+                {{ 'sherlockode_sylius_acb.scopes.details'|trans({}, 'messages') }}
+            </p>
+            <a href="{{ path('sherlockode_sylius_acb_admin_scope_init') }}" class="ui primary button">
+                {{ 'sherlockode_sylius_acb.scopes.button'|trans({}, 'messages') }}
+            </a>
+        </div>
+    {% endif %}
     <div class="ui segment">
         <h3 class="ui dividing header">{{ 'tools.import.title'|trans }}</h3>
         <p>{{ 'tools.import.description'|trans }}</p>

@@ -9,3 +9,21 @@ sylius_ui:
             blocks:
                 sylius_acb:
                     template: "@SherlockodeSyliusAdvancedContentPlugin/admin/stylesheets.html.twig"
+    
+services:
+    sherlockode_sylius_acb.listener.grid:
+        class: Sherlockode\SyliusAdvancedContentPlugin\EventListener\AdminGridListener
+        arguments:
+            - '@session'
+            - '@translator'
+            - '@sherlockode_sylius_acb.scope_initializer'
+            - '@sherlockode_advanced_content.configuration_manager'
+        tags:
+            - { name: kernel.event_listener, event: sherlockode_sylius_acb.content.index, method: checkScopeInitialization }
+            - { name: kernel.event_listener, event: sherlockode_sylius_acb.page.index, method: checkScopeInitialization }
+    sherlockode_sylius_acb.listener.channel:
+        class: Sherlockode\SyliusAdvancedContentPlugin\EventListener\ChannelListener
+        arguments:
+            - '@sherlockode_advanced_content.configuration_manager'
+        tags:
+            - { name: doctrine.event_listener, event: onFlush, lazy: true }
