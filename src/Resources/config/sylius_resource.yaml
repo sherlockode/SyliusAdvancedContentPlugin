@@ -5,6 +5,7 @@ sylius_resource:
             classes:
                 model: Sherlockode\SyliusAdvancedContentPlugin\Entity\Page
                 form: Sherlockode\AdvancedContentBundle\Form\Type\PageType
+                repository: Sherlockode\SyliusAdvancedContentPlugin\Repository\PageRepository
         sherlockode_sylius_acb.content:
             driver: doctrine/orm
             classes:

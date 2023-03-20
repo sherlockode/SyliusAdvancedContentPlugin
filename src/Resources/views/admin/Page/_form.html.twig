@@ -1,0 +1,77 @@
+{% form_theme form with [
+    '@SyliusAdmin/Form/theme.html.twig',
+    '@SherlockodeAdvancedContent/Form/content.html.twig',
+    '@SherlockodeAdvancedContent/Form/translations.html.twig'
+] %}
+
+{% set page = form.vars.data %}
+{{ form_errors(form) }}
+<div class="ui grid">
+    <div class="twelve wide column">
+        <div class="ui fluid styled accordion">
+            <div class="active title">
+                <i class="dropdown icon"></i>
+                {{ 'page.form.general'|trans({}, 'AdvancedContentBundle') }}
+            </div>
+            <div class="active content">
+                {{ form_row(form.pageIdentifier) }}
+                {{ form_row(form.pageType) }}
+                {% if form.status is defined %}
+                    {{ form_row(form.status) }}
+                {% endif %}
+            </div>
+        </div>
+        {% if form.pageMeta is defined %}
+            <div class="ui fluid styled accordion">
+                <div class="active title">
+                    <i class="dropdown icon"></i>
+                    {{ 'page.form.page_meta'|trans({}, 'AdvancedContentBundle') }}
+                </div>
+                <div class="active content">
+                    {{ form_widget(form.pageMeta) }}
+                </div>
+            </div>
+        {% endif %}
+        {% if form.content is defined %}
+            <div class="ui fluid styled accordion">
+                <div class="active title">
+                    <i class="dropdown icon"></i>
+                    {{ 'page.form.content'|trans({}, 'AdvancedContentBundle') }}
+                </div>
+                <div class="active content">
+                    {{ form_widget(form.content) }}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    <div class="four wide column">
+        {% if form.scopes is defined %}
+            <div class="ui fluid styled accordion">
+                <div class="active title">
+                    <i class="dropdown icon"></i>
+                    {{ 'sherlockode_sylius_acb.form.scope'|trans }}
+                </div>
+                <div class="active content">
+                    <div class="field">
+                        {{ form_widget(form.scopes) }}
+                    </div>
+                    <div class="ui checkbox">
+                        <input type="checkbox" id="acb-scopes-select-all">
+                        <label for="acb-scopes-select-all">{{ 'content.form.scopes_select_all'|trans({}, 'AdvancedContentBundle') }}</label>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        <div class="ui segment center aligned">
+            <div class="ui buttons">
+                <button class="ui labeled icon primary button" type="submit">
+                    {% if page.id %}
+                        <i class="save icon"></i> {{ 'sylius.ui.save_changes'|trans }}
+                    {% else %}
+                        <i class="plus icon"></i> {{ 'sylius.ui.create'|trans }}
+                    {% endif %}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -9,7 +9,7 @@ use Sherlockode\AdvancedContentBundle\Model\Page as BasePage;
 use Sylius\Component\Resource\Model\ResourceInterface;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Sherlockode\SyliusAdvancedContentPlugin\Repository\PageRepository")
  * @ORM\Table(name="acb_page")
  */
 class Page extends BasePage implements ResourceInterface
@@ -27,9 +27,9 @@ class Page extends BasePage implements ResourceInterface
     protected $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="Sherlockode\SyliusAdvancedContentPlugin\Entity\Content", mappedBy="page", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="Sherlockode\SyliusAdvancedContentPlugin\Entity\Content", mappedBy="page", cascade={"persist", "remove"})
      */
-    protected $contents;
+    protected $content;
 
     /**
      * @ORM\ManyToOne(targetEntity="Sherlockode\SyliusAdvancedContentPlugin\Entity\PageType")
@@ -38,7 +38,18 @@ class Page extends BasePage implements ResourceInterface
     protected $pageType;
 
     /**
-     * @ORM\OneToMany(targetEntity="Sherlockode\SyliusAdvancedContentPlugin\Entity\PageMeta", mappedBy="page", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="Sherlockode\SyliusAdvancedContentPlugin\Entity\PageMeta", mappedBy="page", cascade={"persist", "remove"})
      */
-    protected $pageMetas;
+    protected $pageMeta;
+
+    /**
+     * @var Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Sherlockode\SyliusAdvancedContentPlugin\Entity\Scope")
+     * @ORM\JoinTable(name="acb_page_scope",
+     *      joinColumns={@ORM\JoinColumn(name="page_id", referencedColumnName="id", onDelete="cascade")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="scope_id", referencedColumnName="id", onDelete="cascade")}
+     * )
+     */
+    protected $scopes;
 }
