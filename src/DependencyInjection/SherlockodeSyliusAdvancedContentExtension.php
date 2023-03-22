@@ -52,7 +52,9 @@ class SherlockodeSyliusAdvancedContentExtension extends Extension implements Pre
                 'scope' => 'Sherlockode\SyliusAdvancedContentPlugin\Entity\Scope',
                 'page_type' => 'Sherlockode\SyliusAdvancedContentPlugin\Entity\PageType',
                 'page' => 'Sherlockode\SyliusAdvancedContentPlugin\Entity\Page',
+                'page_version' => 'Sherlockode\SyliusAdvancedContentPlugin\Entity\PageVersion',
                 'page_meta' => 'Sherlockode\SyliusAdvancedContentPlugin\Entity\PageMeta',
+                'page_meta_version' => 'Sherlockode\SyliusAdvancedContentPlugin\Entity\PageMetaVersion',
             ],
             'templates' => [
                 'tools' => '@SherlockodeSyliusAdvancedContentPlugin/tools.html.twig',

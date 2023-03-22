@@ -2,8 +2,10 @@
 
 namespace Sherlockode\SyliusAdvancedContentPlugin\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Sherlockode\AdvancedContentBundle\Model\PageMeta as BasePageMeta;
 use Doctrine\ORM\Mapping as ORM;
+use Sherlockode\AdvancedContentBundle\Model\PageMetaVersionInterface;
 
 /**
  * @ORM\Entity
@@ -25,4 +27,12 @@ class PageMeta extends BasePageMeta
      * @ORM\JoinColumn(name="page_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $page;
+
+    /**
+     * @var Collection
+     *
+     * @ORM\OneToMany(targetEntity="Sherlockode\SyliusAdvancedContentPlugin\Entity\PageMetaVersion", mappedBy="pageMeta", cascade={"persist", "remove"})
+     * @ORM\OrderBy({"createdAt": "DESC"})
+     */
+    protected $versions;
 }
