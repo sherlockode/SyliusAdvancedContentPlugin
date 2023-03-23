@@ -4,12 +4,12 @@ namespace Sherlockode\SyliusAdvancedContentPlugin\EventListener;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Sherlockode\AdvancedContentBundle\Manager\ConfigurationManager;
-use Sherlockode\AdvancedContentBundle\Model\ContentVersionInterface;
+use Sherlockode\AdvancedContentBundle\Model\VersionInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class AdminContentListener
+class AdminVersionListener
 {
     /**
      * @var Session
@@ -57,7 +57,20 @@ class AdminContentListener
         $this->em = $em;
     }
 
-    public function editVersionMessage(): void
+    public function editContentVersionMessage(): void
+    {
+        $this->addVersionMessage('content_version');
+    }
+
+    public function editPageVersionMessage(): void
+    {
+        $this->addVersionMessage('page_version');
+    }
+
+    /**
+     * @param string $entityClass
+     */
+    private function addVersionMessage(string $entityClass): void
     {
         if ($this->requestStack->getMainRequest() === null) {
             return;
@@ -68,8 +81,8 @@ class AdminContentListener
             return;
         }
 
-        /** @var ContentVersionInterface $version */
-        $version = $this->em->getRepository($this->configurationManager->getEntityClass('content_version'))->find($versionId);
+        /** @var VersionInterface $version */
+        $version = $this->em->getRepository($this->configurationManager->getEntityClass($entityClass))->find($versionId);
         if ($version === null) {
             return;
         }

@@ -27,13 +27,13 @@ class PageVersion extends BasePageVersion
     protected $page;
 
     /**
-     * @ORM\OneToOne(targetEntity="Sherlockode\SyliusAdvancedContentPlugin\Entity\ContentVersion")
+     * @ORM\OneToOne(targetEntity="Sherlockode\SyliusAdvancedContentPlugin\Entity\ContentVersion", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="content_version_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $contentVersion;
 
     /**
-     * @ORM\OneToOne(targetEntity="Sherlockode\SyliusAdvancedContentPlugin\Entity\PageMetaVersion")
+     * @ORM\OneToOne(targetEntity="Sherlockode\SyliusAdvancedContentPlugin\Entity\PageMetaVersion", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="page_meta_version_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $pageMetaVersion;
