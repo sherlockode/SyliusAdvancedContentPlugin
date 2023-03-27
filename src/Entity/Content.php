@@ -2,8 +2,10 @@
 
 namespace Sherlockode\SyliusAdvancedContentPlugin\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Sherlockode\AdvancedContentBundle\Model\Content as BaseContent;
+use Sherlockode\AdvancedContentBundle\Model\ContentVersionInterface;
 use Sylius\Component\Resource\Model\ResourceInterface;
 
 /**
@@ -26,4 +28,20 @@ class Content extends BaseContent implements ResourceInterface
      * @ORM\JoinColumn(name="page_id", referencedColumnName="id", onDelete="SET NULL")
      */
     protected $page;
+
+    /**
+     * @var ContentVersionInterface
+     *
+     * @ORM\OneToOne(targetEntity="Sherlockode\SyliusAdvancedContentPlugin\Entity\ContentVersion")
+     * @ORM\JoinColumn(name="content_version_id", referencedColumnName="id", onDelete="SET NULL")
+     */
+    protected $contentVersion;
+
+    /**
+     * @var Collection
+     *
+     * @ORM\OneToMany(targetEntity="Sherlockode\SyliusAdvancedContentPlugin\Entity\ContentVersion", mappedBy="content", cascade={"persist", "remove"})
+     * @ORM\OrderBy({"createdAt": "DESC"})
+     */
+    protected $versions;
 }
