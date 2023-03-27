@@ -57,6 +57,9 @@ class SherlockodeSyliusAdvancedContentExtension extends Extension implements Pre
             'templates' => [
                 'tools' => '@SherlockodeSyliusAdvancedContentPlugin/tools.html.twig',
             ],
+            'scopes' => [
+                'enabled' => true,
+            ],
         ]);
     }
 }

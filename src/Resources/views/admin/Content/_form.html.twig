@@ -47,7 +47,13 @@
                     {{ 'sherlockode_sylius_acb.form.scope'|trans }}
                 </div>
                 <div class="active content">
-                    {{ form_widget(form.scopes) }}
+                    <div class="field">
+                        {{ form_widget(form.scopes) }}
+                    </div>
+                    <div class="ui checkbox">
+                        <input type="checkbox" id="acb-scopes-select-all">
+                        <label for="acb-scopes-select-all">{{ 'content.form.scopes_select_all'|trans({}, 'AdvancedContentBundle') }}</label>
+                    </div>
                 </div>
             </div>
         {% endif %}
