@@ -2,9 +2,9 @@
 
 namespace Sherlockode\SyliusAdvancedContentPlugin\Scope;
 
-use Sherlockode\AdvancedContentBundle\Scope\ScopeHandlerInterface;
+use Sherlockode\AdvancedContentBundle\Scope\ScopeHandler;
 
-class ChannelLocaleScopeHandler implements ScopeHandlerInterface
+class ChannelLocaleScopeHandler extends ScopeHandler
 {
     /**
      * @return string|null
