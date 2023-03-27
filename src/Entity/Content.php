@@ -44,4 +44,15 @@ class Content extends BaseContent implements ResourceInterface
      * @ORM\OrderBy({"createdAt": "DESC"})
      */
     protected $versions;
+
+    /**
+     * @var Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Sherlockode\SyliusAdvancedContentPlugin\Entity\Scope")
+     * @ORM\JoinTable(name="acb_content_scope",
+     *      joinColumns={@ORM\JoinColumn(name="content_id", referencedColumnName="id", onDelete="cascade")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="scope_id", referencedColumnName="id", onDelete="cascade")}
+     * )
+     */
+    protected $scopes;
 }
