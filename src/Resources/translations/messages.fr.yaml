@@ -8,3 +8,8 @@ sherlockode_sylius_acb:
         edit_page: Modifier une page de contenu
         new_content: Ajouter un bloc de contenu
         new_page: Ajouter une page de contenu
+    form:
+        general: Général
+        content: Contenu
+        history: Historique des versions
+        scope: Scope
