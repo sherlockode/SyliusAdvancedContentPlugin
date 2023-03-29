@@ -13,3 +13,11 @@ sherlockode_sylius_acb:
         content: Content
         history: Version history
         scope: Scope
+    scopes:
+        missing_scopes: Scope management is enabled but scopes have not been initialized. Please go to the Tools page to learn more about it.
+        disabled: Scope management is disabled.
+        up_to_date: Scopes are already up to date.
+        init_success: Scopes have been initialized.
+        segment_title: Scopes management
+        details: Scopes have not been initialized. Either update them or disable scopes management.
+        button: Update scopes

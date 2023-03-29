@@ -26,3 +26,8 @@ sherlockode_sylius_acb_admin_content:
                 templates:
                     form: "@SherlockodeSyliusAdvancedContentPlugin/admin/Content/_form.html.twig"
     type: sylius.resource
+    
+sherlockode_sylius_acb_admin_scope_init:
+    path: "/scope/init"
+    defaults:
+        _controller: sherlockode_sylius_acb.controller.scope::updateScopesAction
