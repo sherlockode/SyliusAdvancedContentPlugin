@@ -8,6 +8,7 @@ sherlockode_sylius_acb:
         edit_page: Modifier une page de contenu
         new_content: Ajouter un bloc de contenu
         new_page: Ajouter une page de contenu
+        duplicate: Dupliquer
     form:
         general: Général
         content: Contenu
