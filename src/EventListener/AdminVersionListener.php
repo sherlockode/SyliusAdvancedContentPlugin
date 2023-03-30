@@ -5,6 +5,7 @@ namespace Sherlockode\SyliusAdvancedContentPlugin\EventListener;
 use Doctrine\ORM\EntityManagerInterface;
 use Sherlockode\AdvancedContentBundle\Manager\ConfigurationManager;
 use Sherlockode\AdvancedContentBundle\Model\VersionInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -72,11 +73,12 @@ class AdminVersionListener
      */
     private function addVersionMessage(string $entityClass): void
     {
-        if ($this->requestStack->getMainRequest() === null) {
+        $request = $this->getRequest();
+        if ($request === null) {
             return;
         }
 
-        $versionId = $this->requestStack->getMainRequest()->get('versionId');
+        $versionId = $request->get('versionId');
         if ($versionId === null) {
             return;
         }
@@ -88,7 +90,7 @@ class AdminVersionListener
         }
 
         $formatter = \IntlDateFormatter::create(
-            $this->requestStack->getMainRequest()->getLocale(),
+            $request->getLocale(),
             \IntlDateFormatter::MEDIUM,
             \IntlDateFormatter::MEDIUM
         );
@@ -97,5 +99,19 @@ class AdminVersionListener
             '%version%' => $version->getId(),
             '%date%' => $formatter->format($version->getCreatedAt()),
         ]));
+    }
+
+    /**
+     * @return Request|null
+     */
+    private function getRequest(): ?Request
+    {
+        if (method_exists($this->requestStack, 'getMainRequest')) {
+            // SF >= 5.3
+            return $this->requestStack->getMainRequest();
+        }
+
+        // compat SF < 5.3
+        return $this->requestStack->getMasterRequest();
     }
 }
