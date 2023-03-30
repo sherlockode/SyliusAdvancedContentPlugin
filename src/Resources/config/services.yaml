@@ -46,7 +46,6 @@ services:
     sherlockode_sylius_acb.scope_extension:
         class: Sherlockode\SyliusAdvancedContentPlugin\Twig\Extension\ScopeExtension
         arguments:
-            - '@sherlockode_advanced_content.configuration_manager'
             - '@sherlockode_sylius_acb.scope_initializer'
         tags:
             - { name: twig.extension }
