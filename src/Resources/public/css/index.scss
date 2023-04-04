@@ -1,0 +1,8 @@
+$zindex: 999;
+
+.acb-lateral-slide {
+    z-index: $zindex + 1;
+}
+.acb-lateral-slide-open .acb-lateral-slide-layer {
+    z-index: $zindex;
+}
