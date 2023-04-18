@@ -1,4 +1,8 @@
 sylius_grid:
+    templates:
+        filter:
+            sherlockode_acb_page_title: '@SherlockodeSyliusAdvancedContentPlugin/Page/Grid/Filters/pageTitle.html.twig'
+            sherlockode_acb_page_status: '@SherlockodeSyliusAdvancedContentPlugin/Page/Grid/Filters/pageStatus.html.twig'
     grids:
         sherlockode_sylius_acb_admin_page:
             driver:
@@ -20,6 +24,11 @@ sylius_grid:
                     options:
                         template: "@SherlockodeSyliusAdvancedContentPlugin/Page/Grid/Fields/status.html.twig"
                     label: sylius.ui.status
+            filters:
+                name:
+                    type: sherlockode_acb_page_title
+                status:
+                    type: sherlockode_acb_page_status
             actions:
                 main:
                     create:
@@ -40,6 +49,13 @@ sylius_grid:
                 id:
                     type: string
                     label: sylius.ui.id
+                name:
+                    type: string
+                    label: sylius.ui.title
+                slug:
+                    type: string
+                    label: sylius.ui.slug
+            filters:
                 name:
                     type: string
                     label: sylius.ui.title
