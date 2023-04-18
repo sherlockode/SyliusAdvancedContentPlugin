@@ -1,13 +1,11 @@
 services:
-
     sherlockode_sylius_acb_menu_listener:
         class: Sherlockode\SyliusAdvancedContentPlugin\Menu\AdminMenuListener
         tags:
             - { name: kernel.event_listener, event: sylius.menu.admin.main, method: addAdminMenuItems }
-    
     sherlockode_advanced_content.user_provider:
         class: Sherlockode\SyliusAdvancedContentPlugin\User\AdminUserProvider
-        arguments: 
+        arguments:
             - '@translator'
             - '@security.token_storage'
             - '@sylius.repository.admin_user'
@@ -65,3 +63,17 @@ services:
             - '@doctrine.orm.entity_manager'
             - '@sherlockode_advanced_content.configuration_manager'
             - '@sherlockode_advanced_content.content_manager'
+    sherlockode_sylius_acb_grid_filter_page_title_filter:
+        class: Sherlockode\SyliusAdvancedContentPlugin\Grid\Filter\PageTitleFilter
+        tags:
+            -
+                name: sylius.grid_filter
+                type: sherlockode_acb_page_title
+                form_type: Sherlockode\SyliusAdvancedContentPlugin\Grid\Form\PageTitleType
+    sherlockode_sylius_acb_grid_filter_page_status_filter:
+        class: Sherlockode\SyliusAdvancedContentPlugin\Grid\Filter\PageStatusFilter
+        tags:
+            -
+                name: sylius.grid_filter
+                type: sherlockode_acb_page_status
+                form_type: Sherlockode\SyliusAdvancedContentPlugin\Grid\Form\PageStatusType

@@ -4,22 +4,32 @@ sylius_grid:
             driver:
                 name: doctrine/orm
                 options:
-                    class: ~
+                    class:
+            sorting:
+                title: asc
             fields:
                 id:
                     type: string
                     label: sylius.ui.id
+                    sortable: ~
                 title:
                     type: twig
                     path: .
                     options:
                         template: "@SherlockodeSyliusAdvancedContentPlugin/Page/Grid/Fields/pageTitle.html.twig"
                     label: sylius.ui.title
+                    sortable: pageMetas.title
                 status:
                     type: twig
                     options:
                         template: "@SherlockodeSyliusAdvancedContentPlugin/Page/Grid/Fields/status.html.twig"
                     label: sylius.ui.status
+                    sortable: ~
+            filters:
+                name:
+                    type: sherlockode_acb_page_title
+                status:
+                    type: sherlockode_acb_page_status
             actions:
                 main:
                     create:
@@ -45,10 +55,22 @@ sylius_grid:
                     class: ~
                     repository:
                         method: createListQueryBuilder
+            sorting:
+                name: asc
             fields:
                 id:
                     type: string
                     label: sylius.ui.id
+                    sortable: ~
+                name:
+                    type: string
+                    label: sylius.ui.title
+                    sortable: ~
+                slug:
+                    type: string
+                    label: sylius.ui.slug
+                    sortable: ~
+            filters:
                 name:
                     type: string
                     label: sylius.ui.title
@@ -76,3 +98,6 @@ sylius_grid:
     templates:
         action:
             acb_duplicate: "@SherlockodeSyliusAdvancedContentPlugin/Grid/Action/duplicate.html.twig"
+        filter:
+            sherlockode_acb_page_title: '@SherlockodeSyliusAdvancedContentPlugin/Page/Grid/Filters/pageTitle.html.twig'
+            sherlockode_acb_page_status: '@SherlockodeSyliusAdvancedContentPlugin/Page/Grid/Filters/pageStatus.html.twig'
