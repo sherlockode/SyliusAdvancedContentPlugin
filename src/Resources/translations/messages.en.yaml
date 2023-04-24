@@ -13,6 +13,7 @@ sherlockode_sylius_acb:
         content: Content
         history: Version history
         scope: Scope
+        version_edit: "You are currently editing version #%version% from %date%"
     scopes:
         missing_scopes: Scope management is enabled but scopes have not been initialized. Please go to the Tools page to learn more about it.
         disabled: Scope management is disabled.
