@@ -54,3 +54,16 @@ import '../../vendor/sherlockode/advanced-content-bundle/Resources/js/index.js';
 import '@fortawesome/fontawesome-free/css/fontawesome.css';
 import '@fortawesome/fontawesome-free/css/solid.css';
 ```
+
+If you are using Webpack, you can add the following lines to your admin     configuration:
+```js
+// ./webpack.config.js
+//...
+Encore.addLoader({
+    resolve: {
+        alias: {
+            './acb-notification.js$': path.resolve(__dirname, 'vendor/sherlockode/sylius-advanced-content-plugin/src/Resources/js/AdvancedContentBundle/acb-notification.js')
+        }
+    }
+});
+```
