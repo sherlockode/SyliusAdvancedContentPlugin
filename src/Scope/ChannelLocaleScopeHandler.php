@@ -93,28 +93,27 @@ class ChannelLocaleScopeHandler extends ScopeHandler
     }
 
     /**
-     * @param array|ScopableInterface[] $entities
-     *
-     * @return ScopableInterface|null
+     * @return ScopeInterface|null
      */
-    public function filterEntityForCurrentScope(array $entities): ?ScopableInterface
+    public function getCurrentScope(): ?ScopeInterface
     {
-        $channel = $this->channelContext->getChannel();
-        $localeCode = $this->localeContext->getLocaleCode();
-
-        foreach ($entities as $entity) {
-            /** @var Scope $scope */
-            foreach ($entity->getScopes() as $scope) {
-                if ($scope->getChannel()->getId() !== $channel->getId()) {
-                    continue;
-                }
-                if ($scope->getLocale()->getCode() !== $localeCode) {
-                    continue;
-                }
-                return $entity;
-            }
+        if (!$this->configurationManager->isScopesEnabled()) {
+            return null;
         }
 
-        return null;
+        $channel = $this->channelContext->getChannel();
+        $localeCode = $this->localeContext->getLocaleCode();
+        $locale = $this->em->getRepository(Locale::class)->findOneBy([
+            'code' => $localeCode,
+        ]);
+
+        if ($channel === null || $locale === null) {
+            return null;
+        }
+
+        return $this->em->getRepository($this->configurationManager->getEntityClass('scope'))->findOneBy([
+            'channel' => $channel,
+            'locale' => $locale,
+        ]);
     }
 }
