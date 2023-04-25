@@ -5,23 +5,12 @@
 {% form_theme exportForm '@SyliusAdmin/Form/theme.html.twig' %}
 
 {% import '@SyliusUi/Macro/headers.html.twig' as headers %}
+{% import "@SherlockodeAdvancedContent/Common/Macros/tabs.html.twig" as tabUtils %}
 
 {% block title %}{{ 'tools.label'|trans }} {{ parent() }}{% endblock %}
 
-{% block content %}
-    {{ headers.default('tools.label'|trans, 'cogs') }}
-
-    {% if sylius_acb_is_scopes_enabled() and not sylius_acb_is_scopes_up_to_date() %}
-        <div class="ui segment">
-            <h3 class="ui dividing header">{{ 'sherlockode_sylius_acb.scopes.segment_title'|trans({}, 'messages') }}</h3>
-            <p>
-                {{ 'sherlockode_sylius_acb.scopes.details'|trans({}, 'messages') }}
-            </p>
-            <a href="{{ path('sherlockode_sylius_acb_admin_scope_init') }}" class="ui primary button">
-                {{ 'sherlockode_sylius_acb.scopes.button'|trans({}, 'messages') }}
-            </a>
-        </div>
-    {% endif %}
+{% set tabs = [] %}
+{% set importExportContent %}
     <div class="ui segment">
         <h3 class="ui dividing header">{{ 'tools.import.title'|trans }}</h3>
         <p>{{ 'tools.import.description'|trans }}</p>
@@ -30,7 +19,7 @@
             {{ form_errors(importForm) }}
             {{ form_row(importForm.file) }}
             <div class="ui hidden divider"></div>
-            <div class="ui buttons">
+            <div class="ui buttons" style="display: inline;">
                 <button class="ui primary button" type="submit">{{ 'tools.import.btn'|trans }}</button>
             </div>
             {{ form_end(importForm) }}
@@ -65,7 +54,7 @@
                 </div>
             </div>
             <div class="ui hidden divider"></div>
-            <div class="ui buttons">
+            <div class="ui buttons" style="display: inline;">
                 <button class="ui primary button" type="submit">{{ 'tools.export.btn'|trans }}</button>
             </div>
             {% if exportForm._token is defined %}
@@ -74,4 +63,42 @@
             {{ form_end(exportForm, {'render_rest': false}) }}
         </div>
     </div>
+{% endset %}
+{% set tabs = tabs|merge([{
+    'id': 'import-export',
+    'active': true,
+    'label': 'tools.import_export'|trans,
+    'content': importExportContent
+}]) %}
+
+{% set configurationContent %}
+    <div class="ui segment">
+        <h3 class="ui dividing header">{{ 'page_type.label'|trans }}</h3>
+        <p>
+            {{ 'page_type.description'|trans }}
+        </p>
+        {{ include('@SherlockodeAdvancedContent/Tools/_pageTypes.html.twig', {'pageTypes': pageTypes, 'form': pageTypeForm}) }}
+    </div>
+    {% if acb_is_scopes_enabled() and not sylius_acb_is_scopes_up_to_date() %}
+        <div class="ui segment">
+            <h3 class="ui dividing header">{{ 'sherlockode_sylius_acb.scopes.segment_title'|trans({}, 'messages') }}</h3>
+            <p>
+                {{ 'sherlockode_sylius_acb.scopes.details'|trans({}, 'messages') }}
+            </p>
+            <a href="{{ path('sherlockode_sylius_acb_admin_scope_init') }}" class="ui primary button">
+                {{ 'sherlockode_sylius_acb.scopes.button'|trans({}, 'messages') }}
+            </a>
+        </div>
+    {% endif %}
+{% endset %}
+{% set tabs = tabs|merge([{
+    'id': 'configuration',
+    'active': false,
+    'label': 'tools.configuration'|trans,
+    'content': configurationContent
+}]) %}
+
+{% block content %}
+    {{ headers.default('tools.label'|trans, 'cogs') }}
+    {{ tabUtils.buildTabs(tabs) }}
 {% endblock %}
