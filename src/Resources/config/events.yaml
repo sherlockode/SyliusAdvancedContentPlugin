@@ -28,8 +28,8 @@ services:
         tags:
             - { name: kernel.event_listener, event: sherlockode_sylius_acb.content.index, method: checkScopeInitialization }
             - { name: kernel.event_listener, event: sherlockode_sylius_acb.page.index, method: checkScopeInitialization }
-    sherlockode_sylius_acb.listener.content:
-        class: Sherlockode\SyliusAdvancedContentPlugin\EventListener\AdminContentListener
+    sherlockode_sylius_acb.listener.version:
+        class: Sherlockode\SyliusAdvancedContentPlugin\EventListener\AdminVersionListener
         arguments:
             - '@session'
             - '@translator'
@@ -37,7 +37,8 @@ services:
             - '@request_stack'
             - '@doctrine.orm.entity_manager'
         tags:
-            - { name: kernel.event_listener, event: sherlockode_sylius_acb.content.initialize_update, method: editVersionMessage }
+            - { name: kernel.event_listener, event: sherlockode_sylius_acb.content.initialize_update, method: editContentVersionMessage }
+            - { name: kernel.event_listener, event: sherlockode_sylius_acb.page.initialize_update, method: editPageVersionMessage }
     sherlockode_sylius_acb.listener.channel:
         class: Sherlockode\SyliusAdvancedContentPlugin\EventListener\ChannelListener
         arguments:

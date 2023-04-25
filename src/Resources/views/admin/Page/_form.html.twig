@@ -43,6 +43,17 @@
                 </div>
             </div>
         {% endif %}
+        {% if page.id %}
+            <div class="ui fluid styled accordion">
+                <div class="active title">
+                    <i class="dropdown icon"></i>
+                    {{ 'sherlockode_sylius_acb.form.history'|trans }}
+                </div>
+                <div class="active content">
+                    {{ include('@SherlockodeAdvancedContent/Version/page_list.html.twig', {'page': page}) }}
+                </div>
+            </div>
+        {% endif %}
     </div>
     <div class="four wide column">
         {% if form.scopes is defined %}
