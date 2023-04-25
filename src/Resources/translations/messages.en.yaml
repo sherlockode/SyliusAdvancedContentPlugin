@@ -8,6 +8,7 @@ sherlockode_sylius_acb:
         edit_page: Edit content page
         new_content: New content block
         new_page: New content page
+        duplicate: Duplicate
     form:
         general: General
         content: Content

@@ -50,4 +50,11 @@ services:
             - '@sherlockode_sylius_acb.scope_initializer'
         tags:
             - { name: twig.extension }
-    
+    sherlockode_sylius_acb_page_factory:
+        class: Sherlockode\SyliusAdvancedContentPlugin\Factory\NewPageFactory
+        decorates: 'sylius.resource_controller.new_resource_factory'
+        arguments:
+            - '@sherlockode_sylius_acb_page_factory.inner'
+            - '@doctrine.orm.entity_manager'
+            - '@sherlockode_advanced_content.configuration_manager'
+            - '@sherlockode_advanced_content.page_manager'

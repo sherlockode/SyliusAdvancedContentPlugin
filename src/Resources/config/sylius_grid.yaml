@@ -29,6 +29,15 @@ sylius_grid:
                         type: update
                     delete:
                         type: delete
+                    duplicate:
+                        type: acb_duplicate
+                        label: sherlockode_sylius_acb.ui.duplicate
+                        icon: copy
+                        options:
+                            link:
+                                route: sherlockode_sylius_acb_admin_page_create
+                                parameters:
+                                    duplicateId: resource.id
         sherlockode_sylius_acb_admin_content:
             driver:
                 name: doctrine/orm
@@ -55,3 +64,6 @@ sylius_grid:
                         type: update
                     delete:
                         type: delete
+    templates:
+        action:
+            acb_duplicate: "@SherlockodeSyliusAdvancedContentPlugin/Grid/Action/duplicate.html.twig"
