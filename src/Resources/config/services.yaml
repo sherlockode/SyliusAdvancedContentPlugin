@@ -58,3 +58,11 @@ services:
             - '@doctrine.orm.entity_manager'
             - '@sherlockode_advanced_content.configuration_manager'
             - '@sherlockode_advanced_content.page_manager'
+    sherlockode_sylius_acb_content_factory:
+        class: Sherlockode\SyliusAdvancedContentPlugin\Factory\NewContentFactory
+        decorates: 'sylius.resource_controller.new_resource_factory'
+        arguments:
+            - '@sherlockode_sylius_acb_content_factory.inner'
+            - '@doctrine.orm.entity_manager'
+            - '@sherlockode_advanced_content.configuration_manager'
+            - '@sherlockode_advanced_content.content_manager'
