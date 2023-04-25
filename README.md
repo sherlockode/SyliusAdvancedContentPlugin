@@ -50,6 +50,7 @@ In the admin JS entry file from your assets, add the resources from the bundle:
 //...
 import '../../vendor/sherlockode/advanced-content-bundle/Resources/public/css/index.scss';
 import '../../vendor/sherlockode/advanced-content-bundle/Resources/js/index.js';
+import '../../vendor/sherlockode/sylius-advanced-content-plugin/src/Resources/public/css/index.scss';
 
 import '@fortawesome/fontawesome-free/css/fontawesome.css';
 import '@fortawesome/fontawesome-free/css/solid.css';
