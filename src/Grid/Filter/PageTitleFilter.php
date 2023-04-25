@@ -13,21 +13,21 @@ class PageTitleFilter implements FilterInterface
         $restriction = null;
 
         if (StringFilter::TYPE_CONTAINS === $data['type']) {
-            $restriction = $dataSource->getExpressionBuilder()->like('pageMetas.title', '%' . $data['value'] . '%');
+            $restriction = $dataSource->getExpressionBuilder()->like('pageVersion.pageMetaVersion.title', '%' . $data['value'] . '%');
         } elseif (StringFilter::TYPE_NOT_CONTAINS === $data['type']) {
-            $restriction = $dataSource->getExpressionBuilder()->notLike('pageMetas.title', '%' . $data['value'] . '%');
+            $restriction = $dataSource->getExpressionBuilder()->notLike('pageVersion.pageMetaVersion.title', '%' . $data['value'] . '%');
         } elseif (StringFilter::TYPE_EQUAL === $data['type']) {
-            $restriction = $dataSource->getExpressionBuilder()->equals('pageMetas.title', $data['value']);
+            $restriction = $dataSource->getExpressionBuilder()->equals('pageVersion.pageMetaVersion.title', $data['value']);
         } elseif (StringFilter::TYPE_NOT_EQUAL === $data['type']) {
-            $restriction = $dataSource->getExpressionBuilder()->notEquals('pageMetas.title', $data['value']);
+            $restriction = $dataSource->getExpressionBuilder()->notEquals('pageVersion.pageMetaVersion.title', $data['value']);
         } elseif (StringFilter::TYPE_EMPTY === $data['type']) {
-            $restriction = $dataSource->getExpressionBuilder()->isNull('pageMetas.title');
+            $restriction = $dataSource->getExpressionBuilder()->isNull('pageVersion.pageMetaVersion.title');
         } elseif (StringFilter::TYPE_NOT_EMPTY === $data['type']) {
-            $restriction = $dataSource->getExpressionBuilder()->isNotNull('pageMetas.title');
+            $restriction = $dataSource->getExpressionBuilder()->isNotNull('pageVersion.pageMetaVersion.title');
         } elseif (StringFilter::TYPE_STARTS_WITH === $data['type']) {
-            $restriction = $dataSource->getExpressionBuilder()->like('pageMetas.title', $data['value'] . '%');
+            $restriction = $dataSource->getExpressionBuilder()->like('pageVersion.pageMetaVersion.title', $data['value'] . '%');
         } elseif (StringFilter::TYPE_ENDS_WITH === $data['type']) {
-            $restriction = $dataSource->getExpressionBuilder()->like('pageMetas.title', '%' . $data['value']);
+            $restriction = $dataSource->getExpressionBuilder()->like('pageVersion.pageMetaVersion.title', '%' . $data['value']);
         }
 
         if ($restriction) {

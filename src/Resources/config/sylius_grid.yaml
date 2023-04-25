@@ -18,7 +18,7 @@ sylius_grid:
                     options:
                         template: "@SherlockodeSyliusAdvancedContentPlugin/Page/Grid/Fields/pageTitle.html.twig"
                     label: sylius.ui.title
-                    sortable: pageMetas.title
+                    sortable: pageVersion.pageMetaVersion.title
                 status:
                     type: twig
                     options:
