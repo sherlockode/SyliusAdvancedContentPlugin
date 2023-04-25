@@ -4,12 +4,45 @@ namespace Sherlockode\SyliusAdvancedContentPlugin\Scope;
 
 use App\Entity\Channel\Channel;
 use App\Entity\Locale\Locale;
+use Doctrine\ORM\EntityManagerInterface;
+use Sherlockode\AdvancedContentBundle\Manager\ConfigurationManager;
+use Sherlockode\AdvancedContentBundle\Model\ScopableInterface;
 use Sherlockode\AdvancedContentBundle\Model\ScopeInterface;
 use Sherlockode\AdvancedContentBundle\Scope\ScopeHandler;
 use Sherlockode\SyliusAdvancedContentPlugin\Entity\Scope;
+use Sylius\Component\Channel\Context\ChannelContextInterface;
+use Sylius\Component\Locale\Context\LocaleContextInterface;
 
 class ChannelLocaleScopeHandler extends ScopeHandler
 {
+    /**
+     * @var ChannelContextInterface
+     */
+    private $channelContext;
+
+    /**
+     * @var LocaleContextInterface
+     */
+    private $localeContext;
+
+    /**
+     * @param EntityManagerInterface  $em
+     * @param ConfigurationManager    $configurationManager
+     * @param ChannelContextInterface $channelContext
+     * @param LocaleContextInterface  $localeContext
+     */
+    public function __construct(
+        EntityManagerInterface $em,
+        ConfigurationManager $configurationManager,
+        ChannelContextInterface $channelContext,
+        LocaleContextInterface $localeContext
+    ) {
+        parent::__construct($em, $configurationManager);
+
+        $this->channelContext = $channelContext;
+        $this->localeContext = $localeContext;
+    }
+
     /**
      * @return string|null
      */
@@ -57,5 +90,31 @@ class ChannelLocaleScopeHandler extends ScopeHandler
             'channel' => $scope->getChannel()->getCode(),
             'locale' => $scope->getLocale()->getCode(),
         ];
+    }
+
+    /**
+     * @param array|ScopableInterface[] $entities
+     *
+     * @return ScopableInterface|null
+     */
+    public function filterEntityForCurrentScope(array $entities): ?ScopableInterface
+    {
+        $channel = $this->channelContext->getChannel();
+        $localeCode = $this->localeContext->getLocaleCode();
+
+        foreach ($entities as $entity) {
+            /** @var Scope $scope */
+            foreach ($entity->getScopes() as $scope) {
+                if ($scope->getChannel()->getId() !== $channel->getId()) {
+                    continue;
+                }
+                if ($scope->getLocale()->getCode() !== $localeCode) {
+                    continue;
+                }
+                return $entity;
+            }
+        }
+
+        return null;
     }
 }
