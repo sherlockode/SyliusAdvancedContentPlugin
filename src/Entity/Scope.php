@@ -48,9 +48,9 @@ class Scope extends BaseScope
     }
 
     /**
-     * @return Channel
+     * @return Channel|null
      */
-    public function getChannel(): Channel
+    public function getChannel(): ?Channel
     {
         return $this->channel;
     }
@@ -68,9 +68,9 @@ class Scope extends BaseScope
     }
 
     /**
-     * @return Locale
+     * @return Locale|null
      */
-    public function getLocale(): Locale
+    public function getLocale(): ?Locale
     {
         return $this->locale;
     }
