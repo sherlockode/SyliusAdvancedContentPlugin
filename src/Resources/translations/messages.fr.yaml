@@ -13,7 +13,9 @@ sherlockode_sylius_acb:
         general: Général
         content: Contenu
         history: Historique des versions
+        preview: Prévisualisation
         scope: Scope
+        show_preview: Prévisualiser
         version_edit: "Vous êtes en train d'éditer la version #%version% du %date%"
     scopes:
         missing_scopes: La gestion des scopes est activée, mais les scopes n'ont pas été initialisés. Veuillez vous rendre sur la page Outils pour en savoir plus.
