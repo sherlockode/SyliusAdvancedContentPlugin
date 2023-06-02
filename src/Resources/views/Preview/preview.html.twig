@@ -1,0 +1,9 @@
+{% extends '@SyliusShop/layout.html.twig' %}
+
+{% block title %}{% if page.pageMeta is not null and page.pageMeta.metaTitle %}{{ page.pageMeta.metaTitle }}{% else %}{{ parent() }}{% endif %}{% endblock %}
+
+{% block content %}
+    {% for element in page.content.data %}
+        {{ acb_render_element(element) }}
+    {% endfor %}
+{% endblock %}

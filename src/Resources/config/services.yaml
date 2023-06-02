@@ -30,6 +30,17 @@ services:
             - '@sherlockode_sylius_acb.scope_initializer'
         tags:
             - { name: console.command }
+    sherlockode_sylius_acb.controller.preview:
+        class: Sherlockode\SyliusAdvancedContentPlugin\Controller\PreviewController
+        public: true
+        arguments:
+            - '@sherlockode_advanced_content.scope_handler'
+            - '@sherlockode_sylius_acb.repository.page'
+            - '@sherlockode_sylius_acb.preview.view_handler'
+        calls:
+            - [ 'setContainer', [ '@Psr\Container\ContainerInterface' ] ]
+        tags:
+            - { name: container.service_subscriber }
     sherlockode_sylius_acb.controller.scope:
         class: Sherlockode\SyliusAdvancedContentPlugin\Controller\ScopeController
         public: true
@@ -77,3 +88,7 @@ services:
                 name: sylius.grid_filter
                 type: sherlockode_acb_page_status
                 form_type: Sherlockode\SyliusAdvancedContentPlugin\Grid\Form\PageStatusType
+    sherlockode_sylius_acb.preview.view_handler:
+        class: Sherlockode\SyliusAdvancedContentPlugin\Preview\ViewHandler
+    Sherlockode\SyliusAdvancedContentPlugin\Preview\ViewHandlerInterface:
+        alias: sherlockode_sylius_acb.preview.view_handler

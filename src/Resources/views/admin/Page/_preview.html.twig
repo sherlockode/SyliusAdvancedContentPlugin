@@ -1,0 +1,33 @@
+{% if page.id %}
+    {% set channels = {} %}
+    {% for scope in page.scopes %}
+        {% if channels[scope.channel.code] is not defined %}
+            {% set channels = channels|merge({(scope.channel.code): scope.channel.name}) %}
+        {% endif %}
+    {% endfor %}
+
+    <div class="ui hidden divider"></div>
+    <div class="ui fluid styled accordion">
+        <div class="active title">
+            <i class="dropdown icon"></i>
+            {{ 'sherlockode_sylius_acb.form.preview'|trans }}
+        </div>
+        <div class="active content">
+            {% for code, name in channels %}
+                {% if channels|length > 1 %}
+                <h5>{{ name }}</h5>
+                {% endif %}
+                {% for scope in page.scopes %}
+                    {% if scope.channel.code == code %}
+                        <a target="_blank" class="ui icon default button" href="{{ path('sherlockode_sylius_acb_admin_page_preview', {'_channel_code': scope.channel.code, '_locale': scope.locale.code, 'pageIdentifier': page.pageIdentifier}) }}">
+                            <i class="fa-solid fa-eye"></i>
+                            {{ 'sherlockode_sylius_acb.form.show_preview'|trans }} ({{ scope.locale.code }})
+                        </a>
+                        <br>
+                        <br>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}

@@ -121,6 +121,46 @@ You can checkout our documentation on the [Advanced Content Bundle](https://gith
 - [Upload Configuration](https://github.com/sherlockode/advanced-content-bundle#upload-configuration)
 - [Advanced Documentation](https://github.com/sherlockode/advanced-content-bundle#advanced-documentation)
 
+## Customizing page preview
+
+By default, the layout used to show the page previews is located at `@SherlockodeSyliusAdvancedContentPlugin/Preview/preview.html.twig`.
+You can customize this template by overriding it like [any template in a third party bundle](https://symfony.com/doc/current/bundles/override.html#templates), or by replacing the `sherlockode_sylius_acb.preview.view_handler` service to manage different layouts depending on the page type:
+
+```yaml
+services:
+    sherlockode_sylius_acb.preview.view_handler:
+        class: App\Acb\ViewHandler
+```
+
+And defining the service by yourself:
+
+```php
+<?php
+
+namespace App\Acb;
+
+use Sherlockode\AdvancedContentBundle\Model\PageInterface;
+use Sherlockode\AdvancedContentBundle\Model\ScopeInterface;
+use Sherlockode\SyliusAdvancedContentPlugin\Preview\ViewHandlerInterface;
+
+class ViewHandler implements ViewHandlerInterface
+{
+    /**
+     * @param PageInterface  $page
+     * @param ScopeInterface $scope
+     *
+     * @return string|null
+     */
+    public function getViewTemplate(PageInterface $page, ScopeInterface $scope): ?string
+    {
+        if ('homepage' === $page->getPageIdentifier()) {
+            return '@SyliusShop/Acb/homepage.html.twig';
+        }
+        
+        return '@SyliusShop/Acb/page.html.twig';
+    }
+}
+```
 
 # Demo Sylius Shop
 
