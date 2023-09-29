@@ -1,0 +1,3 @@
+{% macro formatDatetime(date, format = 'medium') %}
+    {{ date|format_datetime(format) }}
+{% endmacro %}
