@@ -6,3 +6,7 @@ $zindex: 999;
 .acb-lateral-slide-open .acb-lateral-slide-layer {
     z-index: $zindex;
 }
+
+.acb-lateral-slide-content .field details select {
+    box-sizing: border-box;
+}
