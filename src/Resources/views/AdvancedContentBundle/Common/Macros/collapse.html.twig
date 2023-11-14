@@ -1,0 +1,10 @@
+{% macro buildAccordion(data) %}
+    {% for item in data %}
+        <div class="field">
+            <details>
+                <summary>{{ item.title|raw }}</summary>
+                {{ item.content|raw }}
+            </details>
+        </div>
+    {% endfor %}
+{% endmacro %}
