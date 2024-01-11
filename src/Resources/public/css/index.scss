@@ -10,3 +10,24 @@ $zindex: 999;
 .acb-lateral-slide-content .field details select {
     box-sizing: border-box;
 }
+.picture-sources {
+    > label::after {
+        content: '' !important;
+    }
+    [data-form-collection="list"] {
+        [data-form-collection="item"] {
+            + [data-form-collection="item"] {
+                border-top: 1px solid #e5e5e5;
+                margin-top: 10px;
+                padding-top: 15px;
+            }
+            &:last-child {
+                border-bottom: 1px solid #e5e5e5;
+                margin-bottom: 15px;
+            }
+            .picture-source {
+                margin-bottom: 10px;
+            }
+        }
+    }
+}

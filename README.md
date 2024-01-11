@@ -96,14 +96,16 @@ import '@fortawesome/fontawesome-free/css/fontawesome.css';
 import '@fortawesome/fontawesome-free/css/solid.css';
 ```
 
-If you are using Webpack, you can add the following lines to your admin     configuration:
+If you are using Webpack, you can add the following lines to your admin configuration:
 ```js
 // ./webpack.config.js
 //...
 Encore.addLoader({
     resolve: {
         alias: {
-            './acb-notification.js$': path.resolve(__dirname, 'vendor/sherlockode/sylius-advanced-content-plugin/src/Resources/js/AdvancedContentBundle/acb-notification.js')
+            './acb-notification.js$': path.resolve(__dirname, 'vendor/sherlockode/sylius-advanced-content-plugin/src/Resources/js/AdvancedContentBundle/acb-notification.js'),
+            './acb-slide.js$': path.resolve(__dirname, 'vendor/sherlockode/advanced-content-bundle/Resources/js/slide.js'),
+            './acb-slide-collection.js$': path.resolve(__dirname, 'vendor/sherlockode/sylius-advanced-content-plugin/src/Resources/js/AdvancedContentBundle/acb-slide-collection.js')
         }
     }
 });
