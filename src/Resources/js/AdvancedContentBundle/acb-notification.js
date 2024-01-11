@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import 'semantic-ui-css/components/modal';
 
 let notifAlert = function (message) {
   alert(message);
