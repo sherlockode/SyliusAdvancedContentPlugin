@@ -5,17 +5,15 @@ namespace Sherlockode\SyliusAdvancedContentPlugin\EventListener;
 use Doctrine\ORM\EntityManagerInterface;
 use Sherlockode\AdvancedContentBundle\Manager\ConfigurationManager;
 use Sherlockode\AdvancedContentBundle\Model\VersionInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AdminVersionListener
 {
     /**
-     * @var Session
+     * @var RequestStack
      */
-    private $session;
+    private $requestStack;
 
     /**
      * @var TranslatorInterface
@@ -28,33 +26,25 @@ class AdminVersionListener
     private $configurationManager;
 
     /**
-     * @var RequestStack
-     */
-    private $requestStack;
-
-    /**
      * @var EntityManagerInterface
      */
     private $em;
 
     /**
-     * @param Session                $session
+     * @param RequestStack           $requestStack
      * @param TranslatorInterface    $translator
      * @param ConfigurationManager   $configurationManager
-     * @param RequestStack           $requestStack
      * @param EntityManagerInterface $em
      */
     public function __construct(
-        Session $session,
+        RequestStack $requestStack,
         TranslatorInterface $translator,
         ConfigurationManager $configurationManager,
-        RequestStack $requestStack,
         EntityManagerInterface $em
     ) {
-        $this->session = $session;
+        $this->requestStack = $requestStack;
         $this->translator = $translator;
         $this->configurationManager = $configurationManager;
-        $this->requestStack = $requestStack;
         $this->em = $em;
     }
 
@@ -73,7 +63,7 @@ class AdminVersionListener
      */
     private function addVersionMessage(string $entityClass): void
     {
-        $request = $this->getRequest();
+        $request = $this->requestStack->getMainRequest();
         if ($request === null) {
             return;
         }
@@ -95,23 +85,11 @@ class AdminVersionListener
             \IntlDateFormatter::MEDIUM
         );
 
-        $this->session->getFlashBag()->add('info', $this->translator->trans('sherlockode_sylius_acb.form.version_edit', [
-            '%version%' => $version->getId(),
-            '%date%' => $formatter->format($version->getCreatedAt()),
-        ]));
-    }
-
-    /**
-     * @return Request|null
-     */
-    private function getRequest(): ?Request
-    {
-        if (method_exists($this->requestStack, 'getMainRequest')) {
-            // SF >= 5.3
-            return $this->requestStack->getMainRequest();
-        }
-
-        // compat SF < 5.3
-        return $this->requestStack->getMasterRequest();
+        $this->requestStack->getSession()->getFlashBag()
+            ->add('info', $this->translator->trans('sherlockode_sylius_acb.form.version_edit', [
+                '%version%' => $version->getId(),
+                '%date%' => $formatter->format($version->getCreatedAt()),
+            ]))
+        ;
     }
 }

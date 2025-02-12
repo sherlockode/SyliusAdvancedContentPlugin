@@ -5,15 +5,15 @@ namespace Sherlockode\SyliusAdvancedContentPlugin\EventListener;
 use Sherlockode\AdvancedContentBundle\Manager\ConfigurationManager;
 use Sherlockode\SyliusAdvancedContentPlugin\Scope\ScopeInitializer;
 use Symfony\Component\EventDispatcher\GenericEvent;
-use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AdminGridListener
 {
     /**
-     * @var Session
+     * @var RequestStack
      */
-    private $session;
+    private $requestStack;
 
     /**
      * @var TranslatorInterface
@@ -31,18 +31,18 @@ class AdminGridListener
     private $configurationManager;
 
     /**
-     * @param Session              $session
+     * @param RequestStack         $requestStack
      * @param TranslatorInterface  $translator
      * @param ScopeInitializer     $scopeInitializer
      * @param ConfigurationManager $configurationManager
      */
     public function __construct(
-        Session $session,
+        RequestStack $requestStack,
         TranslatorInterface $translator,
         ScopeInitializer $scopeInitializer,
         ConfigurationManager $configurationManager
     ) {
-        $this->session = $session;
+        $this->requestStack = $requestStack;
         $this->translator = $translator;
         $this->scopeInitializer = $scopeInitializer;
         $this->configurationManager = $configurationManager;
@@ -60,6 +60,8 @@ class AdminGridListener
             return;
         }
 
-        $this->session->getFlashBag()->add('info', $this->translator->trans('sherlockode_sylius_acb.scopes.missing_scopes'));
+        $this->requestStack->getSession()->getFlashBag()
+            ->add('info', $this->translator->trans('sherlockode_sylius_acb.scopes.missing_scopes'))
+        ;
     }
 }
