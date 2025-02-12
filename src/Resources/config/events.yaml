@@ -16,12 +16,12 @@ sylius_ui:
             blocks:
                 sylius_acb:
                     template: "@SherlockodeSyliusAdvancedContentPlugin/admin/stylesheets.html.twig"
-    
+
 services:
     sherlockode_sylius_acb.listener.grid:
         class: Sherlockode\SyliusAdvancedContentPlugin\EventListener\AdminGridListener
         arguments:
-            - '@session'
+            - '@request_stack'
             - '@translator'
             - '@sherlockode_sylius_acb.scope_initializer'
             - '@sherlockode_advanced_content.configuration_manager'
@@ -31,10 +31,9 @@ services:
     sherlockode_sylius_acb.listener.version:
         class: Sherlockode\SyliusAdvancedContentPlugin\EventListener\AdminVersionListener
         arguments:
-            - '@session'
+            - '@request_stack'
             - '@translator'
             - '@sherlockode_advanced_content.configuration_manager'
-            - '@request_stack'
             - '@doctrine.orm.entity_manager'
         tags:
             - { name: kernel.event_listener, event: sherlockode_sylius_acb.content.initialize_update, method: editContentVersionMessage }

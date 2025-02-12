@@ -14,7 +14,7 @@ final class SherlockodeSyliusAdvancedContentPlugin extends Bundle
 {
     use SyliusPluginTrait;
 
-    public function build(ContainerBuilder $container)
+    public function build(ContainerBuilder $container): void
     {
         $container->addCompilerPass(new SyliusClassMappingCompilerPass(), PassConfig::TYPE_BEFORE_OPTIMIZATION, 5);
     }
