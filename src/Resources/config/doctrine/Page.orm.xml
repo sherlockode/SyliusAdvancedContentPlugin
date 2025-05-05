@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <mapped-superclass name="Sherlockode\SyliusAdvancedContentPlugin\Entity\Page"
+            table="acb_page"
+            repository-class="Sherlockode\SyliusAdvancedContentPlugin\Repository\PageRepository">
+
+        <id name="id" type="integer">
+            <generator strategy="AUTO" />
+        </id>
+
+        <one-to-one field="content" target-entity="Sherlockode\SyliusAdvancedContentPlugin\Entity\ContentInterface" mapped-by="page">
+            <cascade>
+                <cascade-persist />
+                <cascade-remove />
+            </cascade>
+        </one-to-one>
+
+        <many-to-one field="pageType" target-entity="Sherlockode\SyliusAdvancedContentPlugin\Entity\PageTypeInterface">
+            <join-column name="page_type_id" referenced-column-name="id" on-delete="SET NULL" />
+        </many-to-one>
+
+        <one-to-one field="pageMeta" target-entity="Sherlockode\SyliusAdvancedContentPlugin\Entity\PageMetaInterface" mapped-by="page">
+            <cascade>
+                <cascade-persist />
+                <cascade-remove />
+            </cascade>
+        </one-to-one>
+
+        <many-to-many field="scopes" target-entity="Sherlockode\SyliusAdvancedContentPlugin\Entity\ScopeInterface">
+            <join-table name="acb_page_scope">
+                <join-columns>
+                    <join-column name="page_id" referenced-column-name="id" on-delete="cascade" />
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="scope_id" referenced-column-name="id" on-delete="cascade" />
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
+
+        <one-to-one field="pageVersion" target-entity="Sherlockode\SyliusAdvancedContentPlugin\Entity\PageVersionInterface">
+            <join-column name="page_version_id" referenced-column-name="id" on-delete="SET NULL" />
+        </one-to-one>
+
+        <one-to-many field="versions" target-entity="Sherlockode\SyliusAdvancedContentPlugin\Entity\PageVersion" mapped-by="page">
+            <cascade>
+                <cascade-persist />
+                <cascade-remove />
+            </cascade>
+            <order-by>
+                <order-by-field name="createdAt" direction="DESC" />
+            </order-by>
+        </one-to-many>
+    </mapped-superclass>
+
+</doctrine-mapping>

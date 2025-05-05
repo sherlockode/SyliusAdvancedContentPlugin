@@ -10,64 +10,22 @@ use Sherlockode\AdvancedContentBundle\Model\Page as BasePage;
 use Sherlockode\AdvancedContentBundle\Model\PageVersionInterface;
 use Sylius\Component\Resource\Model\ResourceInterface;
 
-/**
- * @ORM\Entity(repositoryClass="Sherlockode\SyliusAdvancedContentPlugin\Repository\PageRepository")
- * @ORM\Table(name="acb_page")
- */
-class Page extends BasePage implements ResourceInterface
+class Page extends BasePage implements PageInterface
 {
     use TimestampableEntity;
     use BlameableEntity;
 
-    /**
-     * @var int
-     *
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
     protected $id;
 
-    /**
-     * @ORM\OneToOne(targetEntity="Sherlockode\SyliusAdvancedContentPlugin\Entity\Content", mappedBy="page", cascade={"persist", "remove"})
-     */
     protected $content;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Sherlockode\SyliusAdvancedContentPlugin\Entity\PageType")
-     * @ORM\JoinColumn(name="page_type_id", referencedColumnName="id", onDelete="SET NULL")
-     */
     protected $pageType;
 
-    /**
-     * @ORM\OneToOne(targetEntity="Sherlockode\SyliusAdvancedContentPlugin\Entity\PageMeta", mappedBy="page", cascade={"persist", "remove"})
-     */
     protected $pageMeta;
 
-    /**
-     * @var Collection
-     *
-     * @ORM\ManyToMany(targetEntity="Sherlockode\SyliusAdvancedContentPlugin\Entity\Scope")
-     * @ORM\JoinTable(name="acb_page_scope",
-     *      joinColumns={@ORM\JoinColumn(name="page_id", referencedColumnName="id", onDelete="cascade")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="scope_id", referencedColumnName="id", onDelete="cascade")}
-     * )
-     */
     protected $scopes;
 
-    /**
-     * @var PageVersionInterface
-     *
-     * @ORM\OneToOne(targetEntity="Sherlockode\SyliusAdvancedContentPlugin\Entity\PageVersion")
-     * @ORM\JoinColumn(name="page_version_id", referencedColumnName="id", onDelete="SET NULL")
-     */
     protected $pageVersion;
 
-    /**
-     * @var Collection
-     *
-     * @ORM\OneToMany(targetEntity="Sherlockode\SyliusAdvancedContentPlugin\Entity\PageVersion", mappedBy="page", cascade={"persist", "remove"})
-     * @ORM\OrderBy({"createdAt": "DESC"})
-     */
     protected $versions;
 }
