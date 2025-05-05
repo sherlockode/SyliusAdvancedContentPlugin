@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <mapped-superclass name="Sherlockode\SyliusAdvancedContentPlugin\Entity\Content" table="acb_content">
+        <id name="id" type="integer">
+            <generator strategy="AUTO" />
+        </id>
+
+        <one-to-one field="page" target-entity="Sherlockode\SyliusAdvancedContentPlugin\Entity\PageInterface" inversed-by="content">
+            <join-column name="page_id" referenced-column-name="id" on-delete="SET NULL" />
+        </one-to-one>
+
+        <one-to-one field="contentVersion" target-entity="Sherlockode\SyliusAdvancedContentPlugin\Entity\ContentVersionInterface">
+            <join-column name="content_version_id" referenced-column-name="id" on-delete="SET NULL" />
+        </one-to-one>
+
+        <one-to-many field="versions" target-entity="Sherlockode\SyliusAdvancedContentPlugin\Entity\ContentVersionInterface" mapped-by="content">
+            <cascade>
+                <cascade-persist />
+                <cascade-remove />
+            </cascade>
+            <order-by>
+                <order-by-field name="createdAt" direction="DESC" />
+            </order-by>
+        </one-to-many>
+
+        <many-to-many field="scopes" target-entity="Sherlockode\SyliusAdvancedContentPlugin\Entity\ScopeInterface">
+            <join-table name="acb_content_scope">
+                <join-columns>
+                    <join-column name="content_id" referenced-column-name="id" on-delete="cascade" />
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="scope_id" referenced-column-name="id" on-delete="cascade" />
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
+    </mapped-superclass>
+
+</doctrine-mapping>

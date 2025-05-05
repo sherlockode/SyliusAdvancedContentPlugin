@@ -1,13 +1,45 @@
 sylius_resource:
     resources:
+        sherlockode_sylius_acb.content:
+            driver: doctrine/orm
+            classes:
+                model: Sherlockode\SyliusAdvancedContentPlugin\Entity\Content
+                interface: Sherlockode\SyliusAdvancedContentPlugin\Entity\ContentInterface
+                form: Sherlockode\AdvancedContentBundle\Form\Type\ContentType
+        sherlockode_sylius_acb.content_version:
+            driver: doctrine/orm
+            classes:
+                model: Sherlockode\SyliusAdvancedContentPlugin\Entity\ContentVersion
+                interface: Sherlockode\SyliusAdvancedContentPlugin\Entity\ContentVersionInterface
         sherlockode_sylius_acb.page:
             driver: doctrine/orm
             classes:
                 model: Sherlockode\SyliusAdvancedContentPlugin\Entity\Page
                 form: Sherlockode\AdvancedContentBundle\Form\Type\PageType
+                interface: Sherlockode\SyliusAdvancedContentPlugin\Entity\PageInterface
                 repository: Sherlockode\SyliusAdvancedContentPlugin\Repository\PageRepository
-        sherlockode_sylius_acb.content:
+        sherlockode_sylius_acb.page_meta:
             driver: doctrine/orm
             classes:
-                model: Sherlockode\SyliusAdvancedContentPlugin\Entity\Content
-                form: Sherlockode\AdvancedContentBundle\Form\Type\ContentType
+                model: Sherlockode\SyliusAdvancedContentPlugin\Entity\PageMeta
+                interface: Sherlockode\SyliusAdvancedContentPlugin\Entity\PageMetaInterface
+        sherlockode_sylius_acb.page_meta_version:
+            driver: doctrine/orm
+            classes:
+                model: Sherlockode\SyliusAdvancedContentPlugin\Entity\PageMetaVersion
+                interface: Sherlockode\SyliusAdvancedContentPlugin\Entity\PageMetaVersionInterface
+        sherlockode_sylius_acb.page_type:
+            driver: doctrine/orm
+            classes:
+                model: Sherlockode\SyliusAdvancedContentPlugin\Entity\PageType
+                interface: Sherlockode\SyliusAdvancedContentPlugin\Entity\PageTypeInterface
+        sherlockode_sylius_acb.page_version:
+            driver: doctrine/orm
+            classes:
+                model: Sherlockode\SyliusAdvancedContentPlugin\Entity\PageVersion
+                interface: Sherlockode\SyliusAdvancedContentPlugin\Entity\PageVersionInterface
+        sherlockode_sylius_acb.scope:
+            driver: doctrine/orm
+            classes:
+                model: Sherlockode\SyliusAdvancedContentPlugin\Entity\Scope
+                interface: Sherlockode\SyliusAdvancedContentPlugin\Entity\ScopeInterface

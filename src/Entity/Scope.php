@@ -8,35 +8,12 @@ use Doctrine\ORM\Mapping as ORM;
 
 use Sherlockode\AdvancedContentBundle\Model\Scope as BaseScope;
 
-/**
- * @ORM\Entity
- * @ORM\Table(name="acb_scope")
- */
-class Scope extends BaseScope
+class Scope extends BaseScope implements ScopeInterface
 {
-    /**
-     * @var int
-     *
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     * @ORM\Column(name="id", type="integer")
-     */
     protected $id;
 
-    /**
-     * @var Channel
-     *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Channel\Channel")
-     * @ORM\JoinColumn(name="channel_id", referencedColumnName="id", onDelete="CASCADE")
-     */
     protected $channel;
 
-    /**
-     * @var Locale
-     *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Locale\Locale")
-     * @ORM\JoinColumn(name="locale_id", referencedColumnName="id", onDelete="CASCADE")
-     */
     protected $locale;
 
     /**
