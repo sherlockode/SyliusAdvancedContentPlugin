@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sherlockode\SyliusAdvancedContentPlugin\Factory;
 
 use Doctrine\ORM\EntityManagerInterface;
@@ -8,8 +10,8 @@ use Sherlockode\AdvancedContentBundle\Manager\PageManager;
 use Sherlockode\AdvancedContentBundle\Model\PageInterface;
 use Sylius\Bundle\ResourceBundle\Controller\NewResourceFactoryInterface;
 use Sylius\Bundle\ResourceBundle\Controller\RequestConfiguration;
-use Sylius\Component\Resource\Factory\FactoryInterface;
-use Sylius\Component\Resource\Model\ResourceInterface;
+use Sylius\Resource\Factory\FactoryInterface;
+use Sylius\Resource\Model\ResourceInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class NewPageFactory implements NewResourceFactoryInterface

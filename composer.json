@@ -8,12 +8,21 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.4 || ^8.1",
-        "sherlockode/advanced-content-bundle": "^0.9.8",
-        "sylius/sylius": "^1.10"
+        "php": "^8.2",
+        "sherlockode/advanced-content-bundle": "^0.10",
+        "sylius/sylius": "^2.0",
+        "symfony/framework-bundle": "^7.4",
+        "symfony/form": "^7.4",
+        "symfony/twig-bundle": "^7.4",
+        "twig/twig": "^3.0"
     },
     "config": {
         "sort-packages": true
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-sylius-2": "1.0.x-dev"
+        }
     },
     "autoload": {
         "psr-4": {

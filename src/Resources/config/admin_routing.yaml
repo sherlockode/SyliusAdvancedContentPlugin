@@ -2,10 +2,12 @@ sherlockode_sylius_acb_admin_page:
     resource: |
         alias: sherlockode_sylius_acb.page
         section: admin
-        templates: '@SyliusAdmin\\Crud'
+        templates: "@SyliusAdmin\\shared\\crud"
         except: ['show']
         redirect: update
         grid: sherlockode_sylius_acb_admin_page
+        form:
+            type: Sherlockode\AdvancedContentBundle\Form\Type\PageType
         vars:
             index:
                 icon: 'sticky note'
@@ -18,10 +20,12 @@ sherlockode_sylius_acb_admin_content:
     resource: |
         alias: sherlockode_sylius_acb.content
         section: admin
-        templates: '@SyliusAdmin\\Crud'
+        templates: "@SyliusAdmin\\shared\\crud"
         except: ['show']
         redirect: update
         grid: sherlockode_sylius_acb_admin_content
+        form:
+            type: Sherlockode\AdvancedContentBundle\Form\Type\ContentType
         vars:
             index:
                 icon: 'sticky note outline'

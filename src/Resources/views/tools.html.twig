@@ -1,66 +1,67 @@
 {% extends '@SyliusAdmin/layout.html.twig' %}
 {% trans_default_domain 'AdvancedContentBundle' %}
 
-{% form_theme importForm '@SyliusAdmin/Form/theme.html.twig' %}
-{% form_theme exportForm '@SyliusAdmin/Form/theme.html.twig' %}
+{% form_theme importForm '@SyliusAdmin/shared/form_theme.html.twig' %}
+{% form_theme exportForm '@SyliusAdmin/shared/form_theme.html.twig' %}
 
-{% import '@SyliusUi/Macro/headers.html.twig' as headers %}
 {% import "@SherlockodeAdvancedContent/Common/Macros/tabs.html.twig" as tabUtils %}
 
 {% block title %}{{ 'tools.label'|trans }} {{ parent() }}{% endblock %}
 
 {% set tabs = [] %}
 {% set importExportContent %}
-    <div class="ui segment">
-        <h3 class="ui dividing header">{{ 'tools.import.title'|trans }}</h3>
-        <p>{{ 'tools.import.description'|trans }}</p>
-        <div class="acb-tools-import">
-            {{ form_start(importForm, {'attr': {'class': 'ui loadable form'}}) }}
-            {{ form_errors(importForm) }}
-            {{ form_row(importForm.file) }}
-            <div class="ui hidden divider"></div>
-            <div class="ui buttons" style="display: inline;">
-                <button class="ui primary button" type="submit">{{ 'tools.import.btn'|trans }}</button>
+    <div class="card mb-3">
+        <div class="card-body">
+            <h3 class="mb-3 pb-2 border-bottom">{{ 'tools.import.title'|trans }}</h3>
+            <p>{{ 'tools.import.description'|trans }}</p>
+            <div class="acb-tools-import">
+                {{ form_start(importForm) }}
+                {{ form_errors(importForm) }}
+                {{ form_row(importForm.file) }}
+                <div class="mt-3">
+                    <button class="btn btn-primary" type="submit">{{ 'tools.import.btn'|trans }}</button>
+                </div>
+                {{ form_end(importForm) }}
             </div>
-            {{ form_end(importForm) }}
         </div>
     </div>
-    <div class="ui segment">
-        <h3 class="ui dividing header">{{ 'tools.export.title'|trans }}</h3>
-        <p>{{ 'tools.export.description'|trans }}</p>
-        <div class="acb-tools-export">
-            {{ form_start(exportForm, {'attr': {'class': 'ui loadable form'}}) }}
-            {{ form_errors(exportForm) }}
-            <div class="ui two column stackable grid">
-                <div class="eight wide column">
-                    <div class="acb-export-entities">
-                        {{ form_row(exportForm.page) }}
-                        {% if exportForm.page.vars.choices is not empty %}
-                            {{ form_row(exportForm.pageAll) }}
-                        {% else %}
-                            {{ 'tools.export.empty_list.page'|trans }}
-                        {% endif %}
+    <div class="card mb-3">
+        <div class="card-body">
+            <h3 class="mb-3 pb-2 border-bottom">{{ 'tools.export.title'|trans }}</h3>
+            <p>{{ 'tools.export.description'|trans }}</p>
+            <div class="acb-tools-export">
+                {{ form_start(exportForm) }}
+                {{ form_errors(exportForm) }}
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="acb-export-entities">
+                            {{ form_row(exportForm.page) }}
+                            {% if exportForm.page.vars.choices is not empty %}
+                                {{ form_row(exportForm.pageAll) }}
+                            {% else %}
+                                {{ 'tools.export.empty_list.page'|trans }}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="acb-export-entities">
+                            {{ form_row(exportForm.content) }}
+                            {% if exportForm.content.vars.choices is not empty %}
+                                {{ form_row(exportForm.contentAll) }}
+                            {% else %}
+                                {{ 'tools.export.empty_list.content'|trans }}
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
-                <div class="eight wide column">
-                    <div class="acb-export-entities">
-                        {{ form_row(exportForm.content) }}
-                        {% if exportForm.content.vars.choices is not empty %}
-                            {{ form_row(exportForm.contentAll) }}
-                        {% else %}
-                            {{ 'tools.export.empty_list.content'|trans }}
-                        {% endif %}
-                    </div>
+                <div class="mt-3">
+                    <button class="btn btn-primary" type="submit">{{ 'tools.export.btn'|trans }}</button>
                 </div>
+                {% if exportForm._token is defined %}
+                    {{ form_widget(exportForm._token) }}
+                {% endif %}
+                {{ form_end(exportForm, {'render_rest': false}) }}
             </div>
-            <div class="ui hidden divider"></div>
-            <div class="ui buttons" style="display: inline;">
-                <button class="ui primary button" type="submit">{{ 'tools.export.btn'|trans }}</button>
-            </div>
-            {% if exportForm._token is defined %}
-                {{ form_widget(exportForm._token) }}
-            {% endif %}
-            {{ form_end(exportForm, {'render_rest': false}) }}
         </div>
     </div>
 {% endset %}
@@ -72,22 +73,22 @@
 }]) %}
 
 {% set configurationContent %}
-    <div class="ui segment">
-        <h3 class="ui dividing header">{{ 'page_type.label'|trans }}</h3>
-        <p>
-            {{ 'page_type.description'|trans }}
-        </p>
-        {{ include('@SherlockodeAdvancedContent/Tools/_pageTypes.html.twig', {'pageTypes': pageTypes, 'form': pageTypeForm}) }}
+    <div class="card mb-3">
+        <div class="card-body">
+            <h3 class="mb-3 pb-2 border-bottom">{{ 'page_type.label'|trans }}</h3>
+            <p>{{ 'page_type.description'|trans }}</p>
+            {{ include('@SherlockodeAdvancedContent/Tools/_pageTypes.html.twig', {'pageTypes': pageTypes, 'form': pageTypeForm}) }}
+        </div>
     </div>
     {% if acb_is_scopes_enabled() and not sylius_acb_is_scopes_up_to_date() %}
-        <div class="ui segment">
-            <h3 class="ui dividing header">{{ 'sherlockode_sylius_acb.scopes.segment_title'|trans({}, 'messages') }}</h3>
-            <p>
-                {{ 'sherlockode_sylius_acb.scopes.details'|trans({}, 'messages') }}
-            </p>
-            <a href="{{ path('sherlockode_sylius_acb_admin_scope_init') }}" class="ui primary button">
-                {{ 'sherlockode_sylius_acb.scopes.button'|trans({}, 'messages') }}
-            </a>
+        <div class="card mb-3">
+            <div class="card-body">
+                <h3 class="mb-3 pb-2 border-bottom">{{ 'sherlockode_sylius_acb.scopes.segment_title'|trans({}, 'messages') }}</h3>
+                <p>{{ 'sherlockode_sylius_acb.scopes.details'|trans({}, 'messages') }}</p>
+                <a href="{{ path('sherlockode_sylius_acb_admin_scope_init') }}" class="btn btn-primary">
+                    {{ 'sherlockode_sylius_acb.scopes.button'|trans({}, 'messages') }}
+                </a>
+            </div>
         </div>
     {% endif %}
 {% endset %}
@@ -98,7 +99,19 @@
     'content': configurationContent
 }]) %}
 
-{% block content %}
-    {{ headers.default('tools.label'|trans, 'cogs') }}
-    {{ tabUtils.buildTabs(tabs) }}
+{% block body %}
+    {{ include('@SyliusAdmin/shared/crud/common/sidebar.html.twig') }}
+    {{ include('@SyliusAdmin/shared/crud/common/navbar.html.twig') }}
+    <div class="page-wrapper">
+        <div class="page-header">
+            <div class="container-xl">
+                <h2 class="page-title"><i class="fa-solid fa-gears me-2"></i>{{ 'tools.label'|trans }}</h2>
+            </div>
+        </div>
+        <div class="page-body">
+            <div class="container-xl">
+                {{ tabUtils.buildTabs(tabs) }}
+            </div>
+        </div>
+    </div>
 {% endblock %}

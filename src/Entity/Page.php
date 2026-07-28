@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sherlockode\SyliusAdvancedContentPlugin\Entity;
 
 use Doctrine\Common\Collections\Collection;
@@ -8,7 +10,7 @@ use Gedmo\Blameable\Traits\BlameableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Sherlockode\AdvancedContentBundle\Model\Page as BasePage;
 use Sherlockode\AdvancedContentBundle\Model\PageVersionInterface;
-use Sylius\Component\Resource\Model\ResourceInterface;
+use Sylius\Resource\Model\ResourceInterface;
 
 class Page extends BasePage implements PageInterface
 {

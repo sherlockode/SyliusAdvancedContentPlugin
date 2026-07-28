@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sherlockode\SyliusAdvancedContentPlugin\Command;
 
 use Sherlockode\AdvancedContentBundle\Manager\ConfigurationManager;
@@ -12,40 +14,15 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ScopeInitCommand extends Command
 {
-    /**
-     * @var ConfigurationManager
-     */
-    private $configurationManager;
-
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-
-    /**
-     * @var ScopeInitializer
-     */
-    private $scopeInitializer;
-
-    /**
-     * @param ConfigurationManager $configurationManager
-     * @param TranslatorInterface  $translator
-     * @param ScopeInitializer     $scopeInitializer
-     * @param                      $name
-     */
     public function __construct(
-        ConfigurationManager $configurationManager,
-        TranslatorInterface $translator,
-        ScopeInitializer $scopeInitializer,
-        $name = null
+        private readonly ConfigurationManager $configurationManager,
+        private readonly TranslatorInterface $translator,
+        private readonly ScopeInitializer $scopeInitializer,
     ) {
-        parent::__construct($name);
-        $this->configurationManager = $configurationManager;
-        $this->translator = $translator;
-        $this->scopeInitializer = $scopeInitializer;
+        parent::__construct();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('sherlockode:sylius-acb:init-scope')
@@ -53,46 +30,31 @@ class ScopeInitCommand extends Command
         ;
     }
 
-    /**
-     * @param InputInterface  $input
-     * @param OutputInterface $output
-     *
-     * @return int|void
-     */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
 
         if (!$this->configurationManager->isScopesEnabled()) {
             $io->info($this->translator->trans('sherlockode_sylius_acb.scopes.disabled'));
 
-            if (defined(sprintf('%s::SUCCESS', get_class($this)))) {
-                return self::SUCCESS;
-            }
-            return;
+            return self::SUCCESS;
         }
+
         if (!$this->scopeInitializer->hasMissingScopes()) {
             $io->info($this->translator->trans('sherlockode_sylius_acb.scopes.up_to_date'));
 
-            if (defined(sprintf('%s::SUCCESS', get_class($this)))) {
-                return self::SUCCESS;
-            }
-            return;
+            return self::SUCCESS;
         }
 
         try {
             $this->scopeInitializer->init();
             $io->success($this->translator->trans('sherlockode_sylius_acb.scopes.init_success'));
-            if (defined(sprintf('%s::SUCCESS', get_class($this)))) {
-                return self::SUCCESS;
-            }
-            return;
+
+            return self::SUCCESS;
         } catch (\Exception $e) {
             $io->error($e->getMessage());
 
-            if (defined(sprintf('%s::FAILURE', get_class($this)))) {
-                return self::FAILURE;
-            }
+            return self::FAILURE;
         }
     }
 }

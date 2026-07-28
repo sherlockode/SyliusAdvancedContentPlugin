@@ -1,31 +1,35 @@
 {% macro buildTabs(tabsData, extraClass) %}
-    <div class="ui top attached tabular menu {{ extraClass }}">
+    <ul class="nav nav-tabs {{ extraClass }}" role="tablist">
         {% for tabData in tabsData %}
-            <button type="button"
-                    class="item {% if tabData.active %}active{% endif %}"
-                    id="{{ tabData.id }}-tab"
-                    data-tab="{{ tabData.id }}"
+            <li class="nav-item" role="presentation">
+                <button type="button"
+                        class="nav-link {% if tabData.active %}active{% endif %}"
+                        id="{{ tabData.id }}-tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#{{ tabData.id }}"
+                        role="tab"
+                        aria-controls="{{ tabData.id }}"
+                        aria-selected="{{ tabData.active ? 'true' : 'false' }}"
+                >
+                    {{ tabData.label }}
+                </button>
+            </li>
+        {% endfor %}
+    </ul>
+    <div class="tab-content pt-3">
+        {% for tabData in tabsData %}
+            <div class="tab-pane fade {% if tabData.active %}show active{% endif %}"
+                 id="{{ tabData.id }}"
+                 role="tabpanel"
+                 aria-labelledby="{{ tabData.id }}-tab"
             >
-                {{ tabData.label }}
-            </button>
+                {{ tabData.content }}
+            </div>
         {% endfor %}
     </div>
-    {% for tabData in tabsData %}
-        <div class="ui bottom attached tab segment {% if tabData.active %}active{% endif %}"
-             data-tab="{{ tabData.id }}"
-             role="tabpanel"
-             aria-labelledby="{{ tabData.id }}-tab"
-        >
-            {{ tabData.content }}
-        </div>
-    {% endfor %}
 {% endmacro %}
 
 {% macro buildEditElementsTabs(tabsData) %}
     {% import _self as tabs %}
     {{ tabs.buildTabs(tabsData, 'acb-tabs') }}
-
-    <script>
-        jQuery('.menu.acb-tabs .item').tab();
-    </script>
 {% endmacro %}
