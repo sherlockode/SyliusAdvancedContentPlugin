@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sherlockode\SyliusAdvancedContentPlugin\Grid\Form;
 
 use Sherlockode\AdvancedContentBundle\Model\PageInterface;

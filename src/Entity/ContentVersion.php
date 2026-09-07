@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sherlockode\SyliusAdvancedContentPlugin\Entity;
 
 use Sherlockode\AdvancedContentBundle\Model\ContentVersion as BaseContentVersion;

@@ -2,4 +2,5 @@ imports:
     - { resource: "sylius_grid.yaml" }
     - { resource: "sylius_resource.yaml" }
     - { resource: "services.yaml" }
+    - { resource: "commands.xml" }
     - { resource: "events.yaml" }

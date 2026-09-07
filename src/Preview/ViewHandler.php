@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sherlockode\SyliusAdvancedContentPlugin\Preview;
 
 use Sherlockode\AdvancedContentBundle\Model\PageInterface;

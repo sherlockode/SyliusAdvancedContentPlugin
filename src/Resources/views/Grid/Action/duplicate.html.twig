@@ -1,5 +1,6 @@
-{% import '@SyliusUi/Macro/buttons.html.twig' as buttons %}
+{% set url = options.link.url|default(path(options.link.route, options.link.parameters|default({}))) %}
 
-{% set path = options.link.url|default(path(options.link.route, options.link.parameters|default({}))) %}
-
-{{ buttons.default(path, action.label, null, action.icon, 'blue') }}
+<a href="{{ url }}" class="btn btn-sm btn-outline-secondary">
+    <i class="{{ action.icon }}"></i>
+    {{ action.label|trans }}
+</a>

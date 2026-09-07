@@ -6,25 +6,21 @@
         {% endif %}
     {% endfor %}
 
-    <div class="ui hidden divider"></div>
-    <div class="ui fluid styled accordion">
-        <div class="active title">
-            <i class="dropdown icon"></i>
-            {{ 'sherlockode_sylius_acb.form.preview'|trans }}
-        </div>
-        <div class="active content">
+    <div class="card mb-3">
+        <div class="card-header">{{ 'sherlockode_sylius_acb.form.preview'|trans }}</div>
+        <div class="card-body">
             {% for code, name in channels %}
                 {% if channels|length > 1 %}
-                <h5>{{ name }}</h5>
+                    <h6 class="mb-2">{{ name }}</h6>
                 {% endif %}
                 {% for scope in page.scopes %}
                     {% if scope.channel.code == code %}
-                        <a target="_blank" class="ui icon default button" href="{{ path('sherlockode_sylius_acb_admin_page_preview', {'_channel_code': scope.channel.code, '_locale': scope.locale.code, 'pageIdentifier': page.pageIdentifier}) }}">
+                        <a target="_blank"
+                           class="btn btn-outline-secondary btn-sm mb-2"
+                           href="{{ path('sherlockode_sylius_acb_admin_page_preview', {'_channel_code': scope.channel.code, '_locale': scope.locale.code, 'pageIdentifier': page.pageIdentifier}) }}">
                             <i class="fa-solid fa-eye"></i>
                             {{ 'sherlockode_sylius_acb.form.show_preview'|trans }} ({{ scope.locale.code }})
-                        </a>
-                        <br>
-                        <br>
+                        </a><br>
                     {% endif %}
                 {% endfor %}
             {% endfor %}

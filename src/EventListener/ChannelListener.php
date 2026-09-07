@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sherlockode\SyliusAdvancedContentPlugin\EventListener;
 
 use Doctrine\ORM\Event\OnFlushEventArgs;

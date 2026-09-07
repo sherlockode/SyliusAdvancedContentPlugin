@@ -13,6 +13,19 @@
             <generator strategy="AUTO" />
         </id>
 
+        <field name="createdAt" column="created_at" type="datetime">
+            <gedmo:timestampable on="create"/>
+        </field>
+        <field name="updatedAt" column="updated_at" type="datetime">
+            <gedmo:timestampable on="update"/>
+        </field>
+        <field name="createdBy" column="created_by" type="string" length="255" nullable="true">
+            <gedmo:blameable on="create"/>
+        </field>
+        <field name="updatedBy" column="updated_by" type="string" length="255" nullable="true">
+            <gedmo:blameable on="update"/>
+        </field>
+
         <one-to-one field="content" target-entity="Sherlockode\SyliusAdvancedContentPlugin\Entity\ContentInterface" mapped-by="page">
             <cascade>
                 <cascade-persist />

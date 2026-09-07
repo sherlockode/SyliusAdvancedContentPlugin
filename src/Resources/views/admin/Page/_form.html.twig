@@ -1,91 +1,120 @@
+{% if form is not defined %}
+    {% set form = hookable_metadata.context.form|default(null) %}
+{% endif %}
+{% if resource is not defined %}
+    {% set resource = hookable_metadata.context.resource|default(null) %}
+{% endif %}
 {% form_theme form with [
-    '@SyliusAdmin/Form/theme.html.twig',
+    '@SyliusAdmin/shared/form_theme.html.twig',
     '@SherlockodeAdvancedContent/Form/content.html.twig'
 ] %}
 
 {% set page = form.vars.data %}
 {{ form_errors(form) }}
-<div class="ui grid">
-    <div class="twelve wide column">
-        <div class="ui fluid styled accordion">
-            <div class="active title">
-                <i class="dropdown icon"></i>
-                {{ 'page.form.general'|trans({}, 'AdvancedContentBundle') }}
-            </div>
-            <div class="active content">
-                {{ form_row(form.pageIdentifier) }}
-                {{ form_row(form.pageType) }}
-                {% if form.status is defined %}
-                    {{ form_row(form.status) }}
-                {% endif %}
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="accordion mb-3" id="acb-page-general">
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#acb-page-general-body">
+                        {{ 'page.form.general'|trans({}, 'AdvancedContentBundle') }}
+                    </button>
+                </h2>
+                <div id="acb-page-general-body" class="accordion-collapse collapse show">
+                    <div class="accordion-body">
+                        {{ form_row(form.pageIdentifier) }}
+                        {{ form_row(form.pageType) }}
+                        {% if form.status is defined %}
+                            {{ form_row(form.status) }}
+                        {% endif %}
+                    </div>
+                </div>
             </div>
         </div>
+
         {% if form.pageMeta is defined %}
-            <div class="ui hidden divider"></div>
-            <div class="ui fluid styled accordion">
-                <div class="active title">
-                    <i class="dropdown icon"></i>
-                    {{ 'page.form.page_meta'|trans({}, 'AdvancedContentBundle') }}
-                </div>
-                <div class="active content">
-                    {{ form_widget(form.pageMeta) }}
+            <div class="accordion mb-3" id="acb-page-meta">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#acb-page-meta-body">
+                            {{ 'page.form.page_meta'|trans({}, 'AdvancedContentBundle') }}
+                        </button>
+                    </h2>
+                    <div id="acb-page-meta-body" class="accordion-collapse collapse show">
+                        <div class="accordion-body">
+                            {{ form_widget(form.pageMeta) }}
+                        </div>
+                    </div>
                 </div>
             </div>
         {% endif %}
+
         {% if form.content is defined %}
-            <div class="ui hidden divider"></div>
-            <div class="ui fluid styled accordion">
-                <div class="active title">
-                    <i class="dropdown icon"></i>
-                    {{ 'page.form.content'|trans({}, 'AdvancedContentBundle') }}
-                </div>
-                <div class="active content">
-                    {{ form_widget(form.content) }}
+            <div class="accordion mb-3" id="acb-page-content">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#acb-page-content-body">
+                            {{ 'page.form.content'|trans({}, 'AdvancedContentBundle') }}
+                        </button>
+                    </h2>
+                    <div id="acb-page-content-body" class="accordion-collapse collapse show">
+                        <div class="accordion-body">
+                            {{ form_widget(form.content) }}
+                        </div>
+                    </div>
                 </div>
             </div>
         {% endif %}
+
         {% if page.id %}
-            <div class="ui hidden divider"></div>
-            <div class="ui fluid styled accordion">
-                <div class="active title">
-                    <i class="dropdown icon"></i>
-                    {{ 'sherlockode_sylius_acb.form.history'|trans }}
-                </div>
-                <div class="active content">
-                    {{ include('@SherlockodeAdvancedContent/Version/page_list.html.twig', {'page': page}) }}
+            <div class="accordion mb-3" id="acb-page-history">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#acb-page-history-body">
+                            {{ 'sherlockode_sylius_acb.form.history'|trans }}
+                        </button>
+                    </h2>
+                    <div id="acb-page-history-body" class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                            {{ include('@SherlockodeAdvancedContent/Version/page_list.html.twig', {'page': page}) }}
+                        </div>
+                    </div>
                 </div>
             </div>
         {% endif %}
     </div>
-    <div class="four wide column">
+
+    <div class="col-lg-4">
         {% if form.scopes is defined %}
-            <div class="ui fluid styled accordion">
-                <div class="active title">
-                    <i class="dropdown icon"></i>
-                    {{ 'sherlockode_sylius_acb.form.scope'|trans }}
-                </div>
-                <div class="active content">
-                    <div class="field">
-                        {{ form_widget(form.scopes) }}
-                    </div>
-                    <div class="ui checkbox">
-                        <input type="checkbox" id="acb-scopes-select-all">
-                        <label for="acb-scopes-select-all">{{ 'content.form.scopes_select_all'|trans({}, 'AdvancedContentBundle') }}</label>
+            <div class="card mb-3">
+                <div class="card-header">{{ 'sherlockode_sylius_acb.form.scope'|trans }}</div>
+                <div class="card-body">
+                    {{ form_widget(form.scopes) }}
+                    <div class="form-check mt-2">
+                        <input class="form-check-input" type="checkbox" id="acb-scopes-select-all">
+                        <label class="form-check-label" for="acb-scopes-select-all">
+                            {{ 'content.form.scopes_select_all'|trans({}, 'AdvancedContentBundle') }}
+                        </label>
                     </div>
                 </div>
             </div>
         {% endif %}
+
         {{ include('@SherlockodeSyliusAdvancedContentPlugin/admin/Page/_preview.html.twig') }}
-        <div class="ui segment center aligned">
-            <div class="ui buttons">
-                <button class="ui labeled icon primary button" type="submit">
+
+        <div class="card">
+            <div class="card-body text-center">
+                <button class="btn btn-primary" type="submit">
                     {% if page.id %}
-                        <i class="save icon"></i> {{ 'sylius.ui.save_changes'|trans }}
+                        <i class="fas fa-save"></i> {{ 'sylius.ui.save_changes'|trans }}
                     {% else %}
-                        <i class="plus icon"></i> {{ 'sylius.ui.create'|trans }}
+                        <i class="fas fa-plus"></i> {{ 'sylius.ui.create'|trans }}
                     {% endif %}
                 </button>
             </div>
         </div>
     </div>
 </div>
+
+{{ include('@SherlockodeSyliusAdvancedContentPlugin/admin/_confirmation_modal.html.twig') }}

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sherlockode\SyliusAdvancedContentPlugin\EventListener;
 
 use Doctrine\ORM\EntityManagerInterface;
@@ -10,42 +12,12 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AdminVersionListener
 {
-    /**
-     * @var RequestStack
-     */
-    private $requestStack;
-
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-
-    /**
-     * @var ConfigurationManager
-     */
-    private $configurationManager;
-
-    /**
-     * @var EntityManagerInterface
-     */
-    private $em;
-
-    /**
-     * @param RequestStack           $requestStack
-     * @param TranslatorInterface    $translator
-     * @param ConfigurationManager   $configurationManager
-     * @param EntityManagerInterface $em
-     */
     public function __construct(
-        RequestStack $requestStack,
-        TranslatorInterface $translator,
-        ConfigurationManager $configurationManager,
-        EntityManagerInterface $em
+        private readonly RequestStack $requestStack,
+        private readonly TranslatorInterface $translator,
+        private readonly ConfigurationManager $configurationManager,
+        private readonly EntityManagerInterface $em,
     ) {
-        $this->requestStack = $requestStack;
-        $this->translator = $translator;
-        $this->configurationManager = $configurationManager;
-        $this->em = $em;
     }
 
     public function editContentVersionMessage(): void
@@ -58,9 +30,6 @@ class AdminVersionListener
         $this->addVersionMessage('page_version');
     }
 
-    /**
-     * @param string $entityClass
-     */
     private function addVersionMessage(string $entityClass): void
     {
         $request = $this->requestStack->getMainRequest();
@@ -73,7 +42,7 @@ class AdminVersionListener
             return;
         }
 
-        /** @var VersionInterface $version */
+        /** @var VersionInterface|null $version */
         $version = $this->em->getRepository($this->configurationManager->getEntityClass($entityClass))->find($versionId);
         if ($version === null) {
             return;
@@ -82,7 +51,7 @@ class AdminVersionListener
         $formatter = \IntlDateFormatter::create(
             $request->getLocale(),
             \IntlDateFormatter::MEDIUM,
-            \IntlDateFormatter::MEDIUM
+            \IntlDateFormatter::MEDIUM,
         );
 
         $this->requestStack->getSession()->getFlashBag()

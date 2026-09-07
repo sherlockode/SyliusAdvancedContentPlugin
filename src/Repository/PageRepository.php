@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sherlockode\SyliusAdvancedContentPlugin\Repository;
 
 use App\Entity\Channel\Channel;
@@ -9,7 +11,7 @@ use Doctrine\ORM\QueryBuilder;
 use Sherlockode\AdvancedContentBundle\Model\PageInterface;
 use Sherlockode\AdvancedContentBundle\Model\ScopeInterface;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
-use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\Resource\Doctrine\Persistence\RepositoryInterface;
 
 class PageRepository extends EntityRepository
 {
@@ -63,10 +65,8 @@ class PageRepository extends EntityRepository
             $qb->join('page.scopes', 'scope')
                 ->andWhere('scope.channel = :channel')
                 ->andWhere('scope.locale = :locale')
-                ->setParameters([
-                    'channel' => $scope->getChannel(),
-                    'locale'  => $scope->getLocale(),
-                ]);
+                ->setParameter('channel', $scope->getChannel())
+                ->setParameter('locale', $scope->getLocale());
         }
 
         return $qb;

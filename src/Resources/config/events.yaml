@@ -1,22 +1,3 @@
-sylius_ui:
-    events:
-        sherlockode_sylius_acb.admin.content.create.stylesheets:
-            blocks:
-                sylius_acb:
-                    template: "@SherlockodeSyliusAdvancedContentPlugin/admin/stylesheets.html.twig"
-        sherlockode_sylius_acb.admin.content.update.stylesheets:
-            blocks:
-                sylius_acb:
-                    template: "@SherlockodeSyliusAdvancedContentPlugin/admin/stylesheets.html.twig"
-        sherlockode_sylius_acb.admin.page.create.stylesheets:
-            blocks:
-                sylius_acb:
-                    template: "@SherlockodeSyliusAdvancedContentPlugin/admin/stylesheets.html.twig"
-        sherlockode_sylius_acb.admin.page.update.stylesheets:
-            blocks:
-                sylius_acb:
-                    template: "@SherlockodeSyliusAdvancedContentPlugin/admin/stylesheets.html.twig"
-
 services:
     sherlockode_sylius_acb.listener.grid:
         class: Sherlockode\SyliusAdvancedContentPlugin\EventListener\AdminGridListener

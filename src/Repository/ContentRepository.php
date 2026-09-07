@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sherlockode\SyliusAdvancedContentPlugin\Repository;
 
 use Doctrine\ORM\NonUniqueResultException;
@@ -52,10 +54,8 @@ class ContentRepository extends EntityRepository
             $qb->join('content.scopes', 'scope')
                 ->andWhere('scope.channel = :channel')
                 ->andWhere('scope.locale = :locale')
-                ->setParameters([
-                    'channel' => $scope->getChannel(),
-                    'locale'  => $scope->getLocale(),
-                ]);
+                ->setParameter('channel', $scope->getChannel())
+                ->setParameter('locale', $scope->getLocale());
         }
 
         return $qb;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sherlockode\SyliusAdvancedContentPlugin\EventListener;
 
 use Sherlockode\AdvancedContentBundle\Manager\ConfigurationManager;
@@ -10,52 +12,20 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AdminGridListener
 {
-    /**
-     * @var RequestStack
-     */
-    private $requestStack;
-
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-
-    /**
-     * @var ScopeInitializer
-     */
-    private $scopeInitializer;
-
-    /**
-     * @var ConfigurationManager
-     */
-    private $configurationManager;
-
-    /**
-     * @param RequestStack         $requestStack
-     * @param TranslatorInterface  $translator
-     * @param ScopeInitializer     $scopeInitializer
-     * @param ConfigurationManager $configurationManager
-     */
     public function __construct(
-        RequestStack $requestStack,
-        TranslatorInterface $translator,
-        ScopeInitializer $scopeInitializer,
-        ConfigurationManager $configurationManager
+        private readonly RequestStack $requestStack,
+        private readonly TranslatorInterface $translator,
+        private readonly ScopeInitializer $scopeInitializer,
+        private readonly ConfigurationManager $configurationManager,
     ) {
-        $this->requestStack = $requestStack;
-        $this->translator = $translator;
-        $this->scopeInitializer = $scopeInitializer;
-        $this->configurationManager = $configurationManager;
     }
 
-    /**
-     * @param GenericEvent $event
-     */
     public function checkScopeInitialization(GenericEvent $event): void
     {
         if (!$this->configurationManager->isScopesEnabled()) {
             return;
         }
+
         if (!$this->scopeInitializer->hasMissingScopes()) {
             return;
         }

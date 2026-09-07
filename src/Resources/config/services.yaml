@@ -22,14 +22,6 @@ services:
         arguments:
             - '@doctrine.orm.entity_manager'
             - '@sherlockode_advanced_content.configuration_manager'
-    sherlockode_sylius_acb.scope_init_command:
-        class: Sherlockode\SyliusAdvancedContentPlugin\Command\ScopeInitCommand
-        arguments:
-            - '@sherlockode_advanced_content.configuration_manager'
-            - '@translator'
-            - '@sherlockode_sylius_acb.scope_initializer'
-        tags:
-            - { name: console.command }
     sherlockode_sylius_acb.controller.preview:
         class: Sherlockode\SyliusAdvancedContentPlugin\Controller\PreviewController
         public: true

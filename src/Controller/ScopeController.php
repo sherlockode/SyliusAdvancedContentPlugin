@@ -1,50 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sherlockode\SyliusAdvancedContentPlugin\Controller;
 
 use Sherlockode\AdvancedContentBundle\Manager\ConfigurationManager;
 use Sherlockode\SyliusAdvancedContentPlugin\Scope\ScopeInitializer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ScopeController extends AbstractController
 {
-    /**
-     * @var ConfigurationManager
-     */
-    private $configurationManager;
-
-    /**
-     * @var ScopeInitializer
-     */
-    private $scopeInitializer;
-
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-
-    /**
-     * @param ConfigurationManager $configurationManager
-     * @param ScopeInitializer     $scopeInitializer
-     * @param TranslatorInterface  $translator
-     */
     public function __construct(
-        ConfigurationManager $configurationManager,
-        ScopeInitializer $scopeInitializer,
-        TranslatorInterface $translator
+        private readonly ConfigurationManager $configurationManager,
+        private readonly ScopeInitializer $scopeInitializer,
+        private readonly TranslatorInterface $translator,
     ) {
-        $this->configurationManager = $configurationManager;
-        $this->scopeInitializer = $scopeInitializer;
-        $this->translator = $translator;
     }
 
-    /**
-     * @return Response
-     */
-    public function updateScopesAction()
+    public function updateScopesAction(): Response
     {
         if (!$this->configurationManager->isScopesEnabled()) {
             $this->addFlash('error', $this->translator->trans('sherlockode_sylius_acb.scopes.disabled'));
